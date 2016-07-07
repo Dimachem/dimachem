@@ -1,6 +1,8 @@
 class Formula < ActiveRecord::Base
 
   trigger.after(:insert) do
+    destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
     <<-SQL
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -8,7 +10,7 @@ class Formula < ActiveRecord::Base
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      INSERT INTO chemfil1.new_product_progress_data
+      INSERT INTO #{destination_db}.new_product_progress_data
         (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
       VALUES
         (NEW.code, NEW.name, NEW.state, NEW.comments, NEW.sales_to_date, NEW.reviewed_by);
@@ -17,6 +19,8 @@ class Formula < ActiveRecord::Base
   end
 
   trigger.after(:update) do
+    destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
     <<-SQL
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -24,7 +28,7 @@ class Formula < ActiveRecord::Base
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      UPDATE chemfil1.new_product_progress_data
+      UPDATE #{destination_db}.new_product_progress_data
         SET `Product Name` = NEW.name,
             `Status` = NEW.state,
             `Comments` = NEW.comments,
@@ -36,6 +40,8 @@ class Formula < ActiveRecord::Base
   end
 
   trigger.after(:delete) do
+    destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
     <<-SQL
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -43,7 +49,7 @@ class Formula < ActiveRecord::Base
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      DELETE FROM chemfil1.new_product_progress_data
+      DELETE FROM #{destination_db}.new_product_progress_data
       WHERE `Product Code` = OLD.code;
     END thisTrigger
     SQL

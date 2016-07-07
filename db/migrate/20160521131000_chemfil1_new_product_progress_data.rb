@@ -1,23 +1,12 @@
--- ----------------------------------------------------------------------------
--- MySQL Workbench Migration
--- Migrated Schemata: CHEMFIL1
--- Source Schemata: CHEMFIL1
--- Created: Sat May 21 13:11:51 2016
--- Workbench Version: 6.3.6
--- ----------------------------------------------------------------------------
+include MigrationHelper
 
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------------------------------------------------------
--- Schema CHEMFIL1
--- ----------------------------------------------------------------------------
--- DROP SCHEMA IF EXISTS `CHEMFIL1` ;
-CREATE SCHEMA IF NOT EXISTS `CHEMFIL1` CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-
+class Chemfil1NewProductProgressData < ActiveRecord::Migration
+  def up
+    sql = <<-SQL
 -- ----------------------------------------------------------------------------
 -- Table CHEMFIL1.New_Product_Progress_Data
 -- ----------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS `CHEMFIL1`.`New_Product_Progress_Data` (
+CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `Product Code` VARCHAR(255) NOT NULL,
   `Product Name` VARCHAR(255) NULL,
   -- `MATERIAL ID` VARCHAR(255) NULL,
@@ -93,23 +82,26 @@ CREATE TABLE IF NOT EXISTS `CHEMFIL1`.`New_Product_Progress_Data` (
   `Sales to Date` DECIMAL(19,4) NULL,
   -- INDEX `MATERIAL ID` (`MATERIAL ID` ASC),
   PRIMARY KEY (`Product Code`));
-SET FOREIGN_KEY_CHECKS = 1;
+SQL
 
--- ----------------------------------------------------------------------------
--- Trigger CHEMFIL1.New_Product_Progress_Data_AFTER_INSERT
--- ----------------------------------------------------------------------------
-DELIMITER $$
-CREATE TRIGGER `CHEMFIL1`.`New_Product_Progress_Data_AFTER_INSERT` AFTER INSERT
-ON `CHEMFIL1`.`New_Product_Progress_Data`
-FOR EACH ROW
-BEGIN
+    Chemfil1Migration.execute(sql)
+
+    # sets the connection for create_trigger
+    @connection = Chemfil1Migration.connection
+
+    create_trigger("New_Product_Progress_Data_AFTER_INSERT", :generated => false, :compatibility => 1).
+        on("New_Product_Progress_Data").
+        after(:insert) do
+      destination_db = Rails.application.config.database_configuration()[Rails.env]['database']
+
+      <<-SQL_ACTIONS
         thisTrigger: BEGIN
           IF (@TRIGGER_CHECKS_DIMACHEM = FALSE) THEN
             LEAVE thisTrigger;
           END IF;
 
           SET @TRIGGER_CHECKS_CHEMFIL1 = FALSE;
-          INSERT INTO dimachem_development.formulas
+          INSERT INTO #{destination_db}.formulas
             (code, name, state, comments, sales_to_date, reviewed_by, created_at, updated_at)
           VALUES
             (
@@ -123,7 +115,7 @@ BEGIN
 
           SET @formula_id = LAST_INSERT_ID();
 
-          INSERT INTO dimachem_development.formulas_progress_steps
+          INSERT INTO #{destination_db}.formulas_progress_steps
             (formula_id, progress_step_id, comments, completed, completed_on, created_at, updated_at)
           SELECT @formula_id, progress_steps.id,
               temp_fps.comments,
@@ -252,6 +244,8 @@ BEGIN
             AND temp_fps.step_code = progress_steps.code;
 
         END thisTrigger;
-END$$
+      SQL_ACTIONS
+    end
+  end
 
-DELIMITER ;
+end
