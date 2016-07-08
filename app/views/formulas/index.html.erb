@@ -2,7 +2,7 @@
 
 <h1>Listing Formulas</h1>
 
-<table>
+<table class="table table-striped table-condensed table-responsive">
   <thead>
     <tr>
       <th>Code</th>
@@ -24,9 +24,9 @@
         <td><%= formula.comments %></td>
         <td><%= formula.sales_to_date %></td>
         <td><%= formula.reviewed_by %></td>
-        <td><%= link_to 'Show', formula %></td>
-        <td><%= link_to 'Edit', edit_formula_path(formula) %></td>
-        <td><%= link_to 'Destroy', formula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', formula, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_formula_path(formula), class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Destroy', formula, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Formula', new_formula_path %>
+<%= link_to 'New Formula', new_formula_path, class: 'btn btn-primary' %>

@@ -237,7 +237,7 @@ SQL
                   NEW.`Sr_Mgmt_Rev_Comment` AS comments,
                   NEW.`Sr_Mgmt_Rev_YN` AS completed,
                   NEW.`Sr_Mgmt_Rev_Date` AS completed_on ) AS temp_fps,
-              dimachem_development.progress_steps
+              #{destination_db}.progress_steps
           WHERE (temp_fps.comments IS NOT NULL
             OR temp_fps.completed = TRUE
             OR temp_fps.completed_on IS NOT NULL)

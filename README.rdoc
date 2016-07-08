@@ -12,8 +12,9 @@ Things you may want to cover:
 * Configuration
 
 * Database creation
-rake db:created
-RAILS_ENV=development_sync rake db:create
+rake db:create
+rake db:create RAILS_ENV=development_sync
+rake db:create RAILS_ENV=test_sync
 
 run rake db:generate_trigger_migration whenever a trigger changes
 
@@ -22,14 +23,14 @@ rake db:migrate
 rake db:seed
 
 * How to run the test suite
-RAILS_ENV=test_sync rake db:create
-RAILS_ENV=test rake db:migrate
+rake db:migrate RAILS_ENV=test
+rake db:seed RAILS_ENV=test
 rake test
 
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:precompile
+bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile
 
 * ...
 
