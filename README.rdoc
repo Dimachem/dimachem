@@ -24,6 +24,7 @@ run rake db:generate_trigger_migration whenever a trigger changes
 * Database initialization
 rake db:migrate
 rake db:seed
+run db\chemfil1\201605211310_New_Product_Progress_Data_migration_data.bat
 
 * How to run the test suite
 rake db:migrate RAILS_ENV=test
@@ -36,6 +37,7 @@ rake test
 bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile
 
 * ...
+http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial
 
 
 Please feel free to use a different markup language if you do not plan to run
