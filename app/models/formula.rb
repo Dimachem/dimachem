@@ -1,4 +1,31 @@
 class Formula < ActiveRecord::Base
+  has_many :formulas_progress_steps
+  has_many :formulas_assets
+
+  accepts_nested_attributes_for :formulas_progress_steps, reject_if: :reject_formula_progress_step #, allow_destroy: true
+  accepts_nested_attributes_for :formulas_assets, reject_if: :reject_formula_asset #, allow_destroy: true
+
+  def reject_formula_progress_step(attributes)
+    attributes[:completed] == '0' &&
+    attributes[:completed_on].blank? &&
+    attributes[:comments].blank?
+  end
+
+  def reject_formula_asset(attributes)
+    attributes[:asset].blank?
+  end
+
+  state_machine :state, :initial => :opened do
+
+    event :complete do
+      transition :opened => :completed
+    end
+
+    event :archive do
+      transition :opened => :archived
+    end
+
+  end
 
   trigger.after(:insert) do
     destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
@@ -54,7 +81,5 @@ class Formula < ActiveRecord::Base
     END thisTrigger
     SQL
   end
-
-  has_many :Formula_progress_steps
 
 end

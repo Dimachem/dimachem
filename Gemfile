@@ -38,6 +38,16 @@ gem 'turbolinks'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# use hairtrigger to implement this side of the ETL with CHEMFIL1
+# it can be removed once the ETL is disbanded
+gem 'hairtrigger'
+gem 'acts_as_list'
+gem 'paperclip', '~> 4.3'
+# gem 'carrierwave'
+# use net-ldap to interface with Novell eDirectory for authentication
+gem 'net-ldap'
+gem 'state_machine'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -47,12 +57,6 @@ group :development do
   # # Access an IRB console on exception pages or by using <%= console %> in views
   # gem 'web-console', '~> 2.0'
 end
-
-# use hairtrigger to implement this side of the ETL with CHEMFIL1
-# it can be removed once the ETL is disbanded
-gem 'hairtrigger'
-
-gem 'acts_as_list'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

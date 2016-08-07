@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+.byebug_history
+
+# Ignore linked folders
+/public/uploads
+/public/uploads/*

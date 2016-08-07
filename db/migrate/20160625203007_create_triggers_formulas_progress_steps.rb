@@ -19,120 +19,120 @@ class CreateTriggersFormulasProgressSteps < ActiveRecord::Migration
       SELECT code FROM progress_steps WHERE id = NEW.progress_step_id INTO @STEP_CODE;
       SELECT code FROM formulas WHERE id = NEW.formula_id INTO @PRODUCT_CODE;
 
-      IF @STEP_CODE = "Cust_Req_" THEN
+      IF @STEP_CODE = "Cust_Req" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Cust_Req_Com` = NEW.comments,
               `Cust_Req_YN` = NEW.completed,
               `Cust_Req_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Cust_Specs_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Cust_Specs" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Cust_Specs_Com` = NEW.comments,
               `Cust_Specs_YN` = NEW.completed,
               `Cust_Specs_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "TDS MSDS " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "TDS MSDS" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `TDS MSDS Com` = NEW.comments,
               `TDS MSDS YN` = NEW.completed,
               `TDS MSDS Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Formula Com` = NEW.comments,
               `Formula YN` = NEW.completed,
               `Formula Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Nature-Duration-Complexity Com` = NEW.comments,
+          SET `Disc Nature-Duration-Complexity` = NEW.comments,
               `Disc Nature-Duration-Complexity YN` = NEW.completed,
               `Disc Nature-Duration-Complexity Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Consequences of Failure " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Consequences of Failure" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Consequences of Failure Com` = NEW.comments,
+          SET `Disc Consequences of Failure` = NEW.comments,
               `Disc Consequences of Failure YN` = NEW.completed,
               `Disc Consequences of Failure Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test Proc Rec " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test Proc Rec" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Test Proc Rec Com` = NEW.comments,
               `Test Proc Rec YN` = NEW.completed,
               `Test Proc Rec Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Spec " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Spec" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Prod Spec Com` = NEW.comments,
               `Prod Spec YN` = NEW.completed,
               `Prod Spec Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "OK on Raws " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "OK on Raws" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `OK on Raws Com` = NEW.comments,
               `OK on Raws YN` = NEW.completed,
               `OK on Raws Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Code Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Code Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Prod Code Entered Com` = NEW.comments,
               `Prod Code Entered YN` = NEW.completed,
               `Prod Code Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MSDS Init " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MSDS Init" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `MSDS Init Com` = NEW.comments,
               `MSDS Init YN` = NEW.completed,
               `MSDS Init Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Lab Batch " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Lab Batch" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Lab Batch Com` = NEW.comments,
               `Lab Batch YN` = NEW.completed,
               `Lab Batch Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "QC Tests Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "QC Tests Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `QC Tests Entered Com` = NEW.comments,
               `QC Tests Entered YN` = NEW.completed,
               `QC Tests Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Formula Entered Com` = NEW.comments,
               `Formula Entered YN` = NEW.completed,
               `Formula Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MOC " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `MOC Com` = NEW.comments,
               `MOC YN` = NEW.completed,
               `MOC Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Env_Aspects_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Env_Aspects_Com` = NEW.comments,
               `Env_Aspects_YN` = NEW.completed,
               `Env_Aspects_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Com` = NEW.comments,
+          SET `Sr_Mgmt_Rev_Comment` = NEW.comments,
               `Sr_Mgmt_Rev_YN` = NEW.completed,
               `Sr_Mgmt_Rev_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Form to Purch Mang " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Form to Purch Mang" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Form to Purch Mang Com` = NEW.comments,
               `Form to Purch Mang YN` = NEW.completed,
               `Form to Purch Mang Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test proc Forw " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test proc Forw" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Test proc Forw Com` = NEW.comments,
               `Test proc Forw YN` = NEW.completed,
               `Test proc Forw Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
+        WHERE `Product Code` = @PRODUCT_CODE;
       END IF;
 
     END thisTrigger;
@@ -154,120 +154,120 @@ class CreateTriggersFormulasProgressSteps < ActiveRecord::Migration
       SELECT code FROM progress_steps WHERE id = OLD.progress_step_id INTO @STEP_CODE;
       SELECT code FROM formulas WHERE id = OLD.formula_id INTO @PRODUCT_CODE;
 
-      IF @STEP_CODE = "Cust_Req_" THEN
+      IF @STEP_CODE = "Cust_Req" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Cust_Req_Com` = NEW.comments,
               `Cust_Req_YN` = NEW.completed,
               `Cust_Req_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Cust_Specs_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Cust_Specs" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Cust_Specs_Com` = NEW.comments,
               `Cust_Specs_YN` = NEW.completed,
               `Cust_Specs_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "TDS MSDS " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "TDS MSDS" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `TDS MSDS Com` = NEW.comments,
               `TDS MSDS YN` = NEW.completed,
               `TDS MSDS Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Formula Com` = NEW.comments,
               `Formula YN` = NEW.completed,
               `Formula Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Nature-Duration-Complexity Com` = NEW.comments,
+          SET `Disc Nature-Duration-Complexity` = NEW.comments,
               `Disc Nature-Duration-Complexity YN` = NEW.completed,
               `Disc Nature-Duration-Complexity Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Consequences of Failure " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Consequences of Failure" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Consequences of Failure Com` = NEW.comments,
+          SET `Disc Consequences of Failure` = NEW.comments,
               `Disc Consequences of Failure YN` = NEW.completed,
               `Disc Consequences of Failure Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test Proc Rec " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test Proc Rec" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Test Proc Rec Com` = NEW.comments,
               `Test Proc Rec YN` = NEW.completed,
               `Test Proc Rec Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Spec " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Spec" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Prod Spec Com` = NEW.comments,
               `Prod Spec YN` = NEW.completed,
               `Prod Spec Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "OK on Raws " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "OK on Raws" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `OK on Raws Com` = NEW.comments,
               `OK on Raws YN` = NEW.completed,
               `OK on Raws Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Code Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Code Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Prod Code Entered Com` = NEW.comments,
               `Prod Code Entered YN` = NEW.completed,
               `Prod Code Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MSDS Init " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MSDS Init" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `MSDS Init Com` = NEW.comments,
               `MSDS Init YN` = NEW.completed,
               `MSDS Init Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Lab Batch " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Lab Batch" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Lab Batch Com` = NEW.comments,
               `Lab Batch YN` = NEW.completed,
               `Lab Batch Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "QC Tests Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "QC Tests Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `QC Tests Entered Com` = NEW.comments,
               `QC Tests Entered YN` = NEW.completed,
               `QC Tests Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula Entered " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Formula Entered Com` = NEW.comments,
               `Formula Entered YN` = NEW.completed,
               `Formula Entered Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MOC " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `MOC Com` = NEW.comments,
               `MOC YN` = NEW.completed,
               `MOC Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Env_Aspects_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Env_Aspects_Com` = NEW.comments,
               `Env_Aspects_YN` = NEW.completed,
               `Env_Aspects_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev_" THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Com` = NEW.comments,
+          SET `Sr_Mgmt_Rev_Comment` = NEW.comments,
               `Sr_Mgmt_Rev_YN` = NEW.completed,
               `Sr_Mgmt_Rev_Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Form to Purch Mang " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Form to Purch Mang" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Form to Purch Mang Com` = NEW.comments,
               `Form to Purch Mang YN` = NEW.completed,
               `Form to Purch Mang Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test proc Forw " THEN
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test proc Forw" THEN
         UPDATE #{destination_db}.new_product_progress_data
           SET `Test proc Forw Com` = NEW.comments,
               `Test proc Forw YN` = NEW.completed,
               `Test proc Forw Date` = NEW.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
+        WHERE `Product Code` = @PRODUCT_CODE;
       END IF;
 
     END thisTrigger;
@@ -289,120 +289,120 @@ class CreateTriggersFormulasProgressSteps < ActiveRecord::Migration
       SELECT code FROM progress_steps WHERE id = OLD.progress_step_id INTO @STEP_CODE;
       SELECT code FROM formulas WHERE id = OLD.formula_id INTO @PRODUCT_CODE;
 
-      IF @STEP_CODE = "Cust_Req_" THEN
+      IF @STEP_CODE = "Cust_Req" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Cust_Req_Com` = OLD.comments,
-              `Cust_Req_YN` = OLD.completed,
-              `Cust_Req_Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Cust_Specs_" THEN
+          SET `Cust_Req_Com` = NULL,
+              `Cust_Req_YN` = 0,
+              `Cust_Req_Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Cust_Specs" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Cust_Specs_Com` = OLD.comments,
-              `Cust_Specs_YN` = OLD.completed,
-              `Cust_Specs_Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "TDS MSDS " THEN
+          SET `Cust_Specs_Com` = NULL,
+              `Cust_Specs_YN` = 0,
+              `Cust_Specs_Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "TDS MSDS" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `TDS MSDS Com` = OLD.comments,
-              `TDS MSDS YN` = OLD.completed,
-              `TDS MSDS Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula " THEN
+          SET `TDS MSDS Com` = NULL,
+              `TDS MSDS YN` = 0,
+              `TDS MSDS Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Formula Com` = OLD.comments,
-              `Formula YN` = OLD.completed,
-              `Formula Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity " THEN
+          SET `Formula Com` = NULL,
+              `Formula YN` = 0,
+              `Formula Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Nature-Duration-Complexity" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Nature-Duration-Complexity Com` = OLD.comments,
-              `Disc Nature-Duration-Complexity YN` = OLD.completed,
-              `Disc Nature-Duration-Complexity Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Disc Consequences of Failure " THEN
+          SET `Disc Nature-Duration-Complexity` = NULL,
+              `Disc Nature-Duration-Complexity YN` = 0,
+              `Disc Nature-Duration-Complexity Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Disc Consequences of Failure" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Disc Consequences of Failure Com` = OLD.comments,
-              `Disc Consequences of Failure YN` = OLD.completed,
-              `Disc Consequences of Failure Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test Proc Rec " THEN
+          SET `Disc Consequences of Failure` = NULL,
+              `Disc Consequences of Failure YN` = 0,
+              `Disc Consequences of Failure Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test Proc Rec" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Test Proc Rec Com` = OLD.comments,
-              `Test Proc Rec YN` = OLD.completed,
-              `Test Proc Rec Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Spec " THEN
+          SET `Test Proc Rec Com` = NULL,
+              `Test Proc Rec YN` = 0,
+              `Test Proc Rec Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Spec" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Prod Spec Com` = OLD.comments,
-              `Prod Spec YN` = OLD.completed,
-              `Prod Spec Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "OK on Raws " THEN
+          SET `Prod Spec Com` = NULL,
+              `Prod Spec YN` = 0,
+              `Prod Spec Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "OK on Raws" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `OK on Raws Com` = OLD.comments,
-              `OK on Raws YN` = OLD.completed,
-              `OK on Raws Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Prod Code Entered " THEN
+          SET `OK on Raws Com` = NULL,
+              `OK on Raws YN` = 0,
+              `OK on Raws Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Prod Code Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Prod Code Entered Com` = OLD.comments,
-              `Prod Code Entered YN` = OLD.completed,
-              `Prod Code Entered Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MSDS Init " THEN
+          SET `Prod Code Entered Com` = NULL,
+              `Prod Code Entered YN` = 0,
+              `Prod Code Entered Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MSDS Init" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `MSDS Init Com` = OLD.comments,
-              `MSDS Init YN` = OLD.completed,
-              `MSDS Init Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Lab Batch " THEN
+          SET `MSDS Init Com` = NULL,
+              `MSDS Init YN` = 0,
+              `MSDS Init Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Lab Batch" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Lab Batch Com` = OLD.comments,
-              `Lab Batch YN` = OLD.completed,
-              `Lab Batch Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "QC Tests Entered " THEN
+          SET `Lab Batch Com` = NULL,
+              `Lab Batch YN` = 0,
+              `Lab Batch Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "QC Tests Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `QC Tests Entered Com` = OLD.comments,
-              `QC Tests Entered YN` = OLD.completed,
-              `QC Tests Entered Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Formula Entered " THEN
+          SET `QC Tests Entered Com` = NULL,
+              `QC Tests Entered YN` = 0,
+              `QC Tests Entered Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Formula Entered" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Formula Entered Com` = OLD.comments,
-              `Formula Entered YN` = OLD.completed,
-              `Formula Entered Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "MOC " THEN
+          SET `Formula Entered Com` = NULL,
+              `Formula Entered YN` = 0,
+              `Formula Entered Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `MOC Com` = OLD.comments,
-              `MOC YN` = OLD.completed,
-              `MOC Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Env_Aspects_" THEN
+          SET `MOC Com` = NULL,
+              `MOC YN` = 0,
+              `MOC Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Env_Aspects_Com` = OLD.comments,
-              `Env_Aspects_YN` = OLD.completed,
-              `Env_Aspects_Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev_" THEN
+          SET `Env_Aspects_Com` = NULL,
+              `Env_Aspects_YN` = 0,
+              `Env_Aspects_Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Com` = OLD.comments,
-              `Sr_Mgmt_Rev_YN` = OLD.completed,
-              `Sr_Mgmt_Rev_Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Form to Purch Mang " THEN
+          SET `Sr_Mgmt_Rev_Comment` = NULL,
+              `Sr_Mgmt_Rev_YN` = 0,
+              `Sr_Mgmt_Rev_Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Form to Purch Mang" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Form to Purch Mang Com` = OLD.comments,
-              `Form to Purch Mang YN` = OLD.completed,
-              `Form to Purch Mang Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
-      ELSEIF @STEP_CODE = "Test proc Forw " THEN
+          SET `Form to Purch Mang Com` = NULL,
+              `Form to Purch Mang YN` = 0,
+              `Form to Purch Mang Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
+      ELSEIF @STEP_CODE = "Test proc Forw" THEN
         UPDATE #{destination_db}.new_product_progress_data
-          SET `Test proc Forw Com` = OLD.comments,
-              `Test proc Forw YN` = OLD.completed,
-              `Test proc Forw Date` = OLD.completed_on
-        WHERE `Product Code` = @PRODUCT_CODE COLLATE utf8_unicode_ci;
+          SET `Test proc Forw Com` = NULL,
+              `Test proc Forw YN` = 0,
+              `Test proc Forw Date` = NULL
+        WHERE `Product Code` = @PRODUCT_CODE;
       END IF;
 
     END thisTrigger;

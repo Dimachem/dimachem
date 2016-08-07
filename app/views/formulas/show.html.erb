@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <strong>State:</strong>
+  <strong>Status:</strong>
   <%= @formula.state %>
 </p>
 
@@ -30,5 +30,33 @@
   <%= @formula.reviewed_by %>
 </p>
 
-<%= link_to 'Edit', edit_formula_path(@formula) %> |
-<%= link_to 'Back', formulas_path %>
+<p>
+  <strong>Assets:</strong>
+  <% @formula.formulas_assets.each do |formulas_asset| %>
+    <%= link_to formulas_asset.asset.original_filename, formulas_asset.asset.url %> |
+  <% end %>
+</p>
+
+<table class="table table-striped table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Progress Step</th>
+      <th>Completed</th>
+      <th>Completed On</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @formula.formulas_progress_steps.each do |formulas_progress_step| %>
+    <tr>
+      <td><%= formulas_progress_step.progress_step.description %></td>
+      <td><%= formulas_progress_step.completed %></td>
+      <td><%= formulas_progress_step.completed_on %></td>
+      <td><%= formulas_progress_step.comments %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_formula_path(@formula), class: 'btn btn-default' %>
+<%= link_to 'Back', formulas_path, class: 'btn btn-default' %>

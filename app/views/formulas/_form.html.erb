@@ -1,4 +1,4 @@
-<%= form_for(@formula) do |f| %>
+<%= form_for @formula, html: {multipart: true} do |f| %>
   <% if @formula.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@formula.errors.count, "error") %> prohibited this formula from being saved:</h2>
@@ -11,31 +11,90 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
+
+  <div class="controls-row">
+    <div class="col-sm-4">
+      <%= f.label :code, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :code %>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.label :name, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.label :status, class: "control-label" %>
+      <div class="controls">
+        <%= f.select(:state, Formula.state_machine.states.map{|s| [s.name, s.name] }) %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="controls-row">
+    <div class="col-sm-4">
+      <%= f.label :comments, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :comments %>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.label :sales_to_date, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :sales_to_date %>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <%= f.label :reviewed_by, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :reviewed_by %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
+
+  <div class="control-group">
+    <%= f.label :assets, class: 'control-label' %>
+    <div class="controls">
+      <%= f.fields_for :formulas_assets do |nested_f|%>
+        <% if nested_f.object.asset.present? %>
+          <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url %>
+        <% else %>
+          <%= nested_f.file_field :asset %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :comments %><br>
-    <%= f.text_field :comments %>
-  </div>
-  <div class="field">
-    <%= f.label :sales_to_date %><br>
-    <%= f.text_field :sales_to_date %>
-  </div>
-  <div class="field">
-    <%= f.label :reviewed_by %><br>
-    <%= f.text_field :reviewed_by %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <table class="table table-striped table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th>Progress Step</th>
+        <th>Completed</th>
+        <th>Completed On</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= f.fields_for :formulas_progress_steps do |nested_f| %>
+      <tr>
+        <td>
+          <%= nested_f.hidden_field :progress_step_id %>
+          <%= nested_f.label nested_f.object.progress_step.description %>
+        </td>
+        <td><%= nested_f.check_box :completed %></td>
+        <td><%= nested_f.date_field :completed_on, placeholder: 'YYYY-MM-DD' %></td>
+        <td><%= nested_f.text_field :comments %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
   </div>
 <% end %>

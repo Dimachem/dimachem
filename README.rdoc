@@ -8,6 +8,9 @@ Things you may want to cover:
 * Ruby version
 
 * System dependencies
+for paperclip: https://github.com/thoughtbot/paperclip#file
+linked directories
+  > mklink /d "uploads" "\\SERVER\uploads"
 
 * Configuration
 
@@ -37,3 +40,20 @@ bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:pr
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+TODO:
+- move git repo to dimachem
+- update steps order
+- update ETL for formula assets
+- app authentication (login)
+  - login to vpn => open app without login?
+  - Novell Client 2 SP4 for Windows Server 2008 R2 (IR2)
+  - todo app role and author
+- add status filter default open + all
+- get formula status list * open => complete => archived (will not complete)
+
+- change access97 form design to get files from network drive * Steve todo?
+- configure fixtures to truncate db tables to reset auto increment
+
+
+- http://railscasts.com/episodes/196-nested-model-form-part-1

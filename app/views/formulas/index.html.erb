@@ -7,11 +7,8 @@
     <tr>
       <th>Code</th>
       <th>Name</th>
-      <th>State</th>
-      <th>Comments</th>
-      <th>Sales to date</th>
-      <th>Reviewed by</th>
-      <th colspan="3"></th>
+      <th>Status</th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
@@ -21,12 +18,9 @@
         <td><%= formula.code %></td>
         <td><%= formula.name %></td>
         <td><%= formula.state %></td>
-        <td><%= formula.comments %></td>
-        <td><%= formula.sales_to_date %></td>
-        <td><%= formula.reviewed_by %></td>
         <td><%= link_to 'Show', formula, class: 'btn btn-default btn-xs' %></td>
         <td><%= link_to 'Edit', edit_formula_path(formula), class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to 'Destroy', formula, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+        <td><%#= link_to 'Destroy', formula, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
       </tr>
     <% end %>
   </tbody>

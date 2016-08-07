@@ -46,11 +46,11 @@ class FormulasControllerTest < ActionController::TestCase
     assert_redirected_to formula_path(assigns(:formula))
   end
 
-  test "should destroy formula" do
-    assert_difference('Formula.count', -1) do
-      delete :destroy, id: @formula
-    end
-
-    assert_redirected_to formulas_path
-  end
+  # test "should destroy formula" do
+  #   assert_difference('Formula.count', -1) do
+  #     delete :destroy, id: @formula
+  #   end
+  #
+  #   assert_redirected_to formulas_path
+  # end
 end
