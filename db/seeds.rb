@@ -27,4 +27,6 @@ progress_steps = [
   {code: 'Form to Purch Mang', position: 1, description: 'N/A 1', effective_on: Time.now},
   {code: 'Test proc Forw', position: 1, description: 'N/A 2', effective_on: Time.now}
 ]
-ProgressStep.create(progress_steps)
+ProgressStep.create!(progress_steps)
+
+User.create!(username: 'dev_user')

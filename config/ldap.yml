@@ -18,12 +18,12 @@ authorizations: &AUTHORIZATIONS
 ## Enviornments
 
 development:
-  host: localhost
+  host: 10.1.1.205
   port: 389
   attribute: cn
-  base: ou=people,dc=test,dc=com
-  admin_user: cn=admin,dc=test,dc=com
-  admin_password: admin_password
+  base: ou=Systems,o=Windsor
+  admin_user: cn=LDAP_UserRuby,o=Windsor
+  admin_password: LDAPUserRuby
   ssl: false
   # <<: *AUTHORIZATIONS
 

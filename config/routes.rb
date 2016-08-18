@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
-  # root to: 'users_sessions'
   devise_for :users, controllers: { sessions: 'users/sessions' }
+
+  devise_scope :user do
+    authenticated :user do
+      root 'formulas#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'users/sessions#new', as: :unauthenticated_root
+    end
+  end
 
   resources :formulas, except: :destroy
 
