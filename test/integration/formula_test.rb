@@ -8,14 +8,14 @@ module Integration
         insert: {
           code: SecureRandom.uuid,
           name: 'inserted name',
-          state: 'inserted status',
+          state: 'opened',
           comments: 'inserted comments',
           sales_to_date: 10,
           reviewed_by: 'inserted reviewer'
         },
         update: {
           name: 'updated name',
-          state: 'updated status',
+          state: 'completed',
           comments: 'updated comments',
           sales_to_date: 100,
           reviewed_by: 'updated reviewer'

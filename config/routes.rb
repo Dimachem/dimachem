@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # root to: 'users_sessions'
+  devise_for :users, controllers: { sessions: 'users/sessions' }
+
   resources :formulas, except: :destroy
 
   # The priority is based upon order of creation: first created -> highest priority.

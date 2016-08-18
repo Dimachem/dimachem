@@ -34,6 +34,7 @@
       </div>
     </div>
   </div>
+
   <div class="controls-row">
     <div class="col-sm-4">
       <%= f.label :comments, class: "control-label" %>
@@ -57,16 +58,18 @@
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :assets, class: 'control-label' %>
-    <div class="controls">
-      <%= f.fields_for :formulas_assets do |nested_f|%>
-        <% if nested_f.object.asset.present? %>
-          <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url %>
-        <% else %>
-          <%= nested_f.file_field :asset %>
+  <div class="controls-row">
+    <div class="control-group">
+      <%= f.label :assets, class: 'control-label' %>
+      <div class="controls">
+        <%= f.fields_for :formulas_assets do |nested_f|%>
+          <% if nested_f.object.asset.present? %>
+            <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url %>
+          <% else %>
+            <%= nested_f.file_field :asset %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 

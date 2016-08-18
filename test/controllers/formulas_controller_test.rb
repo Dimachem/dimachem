@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class FormulasControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+
   setup do
     @formula = formulas(:one)
+    sign_in users(:one)
   end
 
   test "should get index" do
@@ -42,7 +45,15 @@ class FormulasControllerTest < ActionController::TestCase
   end
 
   test "should update formula" do
-    patch :update, id: @formula, formula: { code: @formula.code, comments: @formula.comments, name: @formula.name, reviewed_by: @formula.reviewed_by, sales_to_date: @formula.sales_to_date, state: @formula.state }
+    patch :update, id: @formula, formula: {
+      code: @formula.code,
+      comments: @formula.comments,
+      name: @formula.name,
+      reviewed_by: @formula.reviewed_by,
+      sales_to_date: @formula.sales_to_date,
+      state: @formula.state
+    }
+
     assert_redirected_to formula_path(assigns(:formula))
   end
 

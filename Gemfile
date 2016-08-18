@@ -44,9 +44,11 @@ gem 'hairtrigger'
 gem 'acts_as_list'
 gem 'paperclip', '~> 4.3'
 # gem 'carrierwave'
-# use net-ldap to interface with Novell eDirectory for authentication
-gem 'net-ldap'
 gem 'state_machine'
+
+# use net-ldap to interface with Novell eDirectory for authentication
+gem 'devise'
+gem 'devise_ldap_authenticatable'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

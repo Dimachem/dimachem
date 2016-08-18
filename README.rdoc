@@ -37,7 +37,6 @@ rake test
 bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile
 
 * ...
-http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial
 
 
 Please feel free to use a different markup language if you do not plan to run
@@ -58,4 +57,7 @@ TODO:
 - configure fixtures to truncate db tables to reset auto increment
 
 
+- http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial
+- https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
+- http://www.userbooster.com/en/download/openldap-for-windows.aspx
 - http://railscasts.com/episodes/196-nested-model-form-part-1
