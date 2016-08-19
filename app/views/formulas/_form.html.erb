@@ -16,21 +16,21 @@
     <div class="col-sm-4">
       <%= f.label :code, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :code %>
+        <%= f.text_field :code, class: "form-control" %>
       </div>
     </div>
 
     <div class="col-sm-4">
       <%= f.label :name, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :name %>
+        <%= f.text_field :name, class: "form-control" %>
       </div>
     </div>
 
     <div class="col-sm-4">
       <%= f.label :status, class: "control-label" %>
       <div class="controls">
-        <%= f.select(:state, Formula.state_machine.states.map{|s| [s.name, s.name] }) %>
+        <%= f.select(:state, Formula.state_machine.states.map{|s| [s.name, s.name] }, {}, {class: "form-control"}) %>
       </div>
     </div>
   </div>
@@ -39,26 +39,27 @@
     <div class="col-sm-4">
       <%= f.label :comments, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :comments %>
+        <%= f.text_field :comments, class: "form-control" %>
       </div>
     </div>
 
     <div class="col-sm-4">
       <%= f.label :sales_to_date, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :sales_to_date %>
+        <%= f.text_field :sales_to_date, class: "form-control" %>
       </div>
     </div>
 
     <div class="col-sm-4">
       <%= f.label :reviewed_by, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :reviewed_by %>
+        <%= f.text_field :reviewed_by, class: "form-control" %>
       </div>
     </div>
   </div>
 
   <div class="controls-row">
+    <div class="col-sm-4">
     <div class="control-group">
       <%= f.label :assets, class: 'control-label' %>
       <div class="controls">
@@ -70,6 +71,7 @@
           <% end %>
         <% end %>
       </div>
+    </div>
     </div>
   </div>
 
@@ -87,11 +89,11 @@
       <tr>
         <td>
           <%= nested_f.hidden_field :progress_step_id %>
-          <%= nested_f.label nested_f.object.progress_step.description %>
+          <%= nested_f.label nested_f.object.progress_step.description, class: 'control-label' %>
         </td>
-        <td><%= nested_f.check_box :completed %></td>
-        <td><%= nested_f.date_field :completed_on, placeholder: 'YYYY-MM-DD' %></td>
-        <td><%= nested_f.text_field :comments %></td>
+        <td><%= nested_f.check_box :completed, class: "form-control" %></td>
+        <td><%= nested_f.date_field :completed_on, class: "form-control", placeholder: 'YYYY-MM-DD' %></td>
+        <td><%= nested_f.text_field :comments, class: "form-control" %></td>
       </tr>
     <% end %>
     </tbody>

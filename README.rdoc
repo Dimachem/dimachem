@@ -43,19 +43,19 @@ Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 TODO:
-- move git repo to dimachem
+- move git repo to dimachem (done)
 - update steps order
 - update ETL for formula assets
 - app authentication (login)
-  - login to vpn => open app without login?
-  - Novell Client 2 SP4 for Windows Server 2008 R2 (IR2)
+  - login to vpn (done)
   - todo app role and author
 - add status filter default open + all
-- get formula status list * open => complete => archived (will not complete)
+- get formula status list * open => complete => archived (done)
 
 - change access97 form design to get files from network drive * Steve todo?
-- configure fixtures to truncate db tables to reset auto increment
 
+- configure fixtures to truncate db tables to reset auto increment
+- create development ldap env
 
 - http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial
 - https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
