@@ -1,5 +1,6 @@
 class Formula < ActiveRecord::Base
   has_many :formulas_progress_steps
+  has_many :progress_steps, -> { order(position: :asc) }, through: :formulas_progress_steps
   has_many :formulas_assets
 
   accepts_nested_attributes_for :formulas_progress_steps, reject_if: :reject_formula_progress_step #, allow_destroy: true
