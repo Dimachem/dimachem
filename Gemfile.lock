@@ -98,6 +98,7 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pkg-config (1.1.7)
+    puma (3.6.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -175,6 +176,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 4.3)
+  puma
   rails (= 4.2.6)
   sass-rails (>= 3.2)
   state_machine

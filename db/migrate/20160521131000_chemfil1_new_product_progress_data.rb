@@ -61,6 +61,9 @@ CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `Comments` TEXT NULL,
   `Status` VARCHAR(255) NULL,
   -- `Formula Image` MEDIUMBLOB NULL,
+  `FileName` VARCHAR(255) NULL,
+  `ContentType` VARCHAR(255) NULL,
+  `FileSize` INT(10) NULL,
   -- `QC Image` MEDIUMBLOB NULL,
   -- `Other Image` MEDIUMBLOB NULL,
   `Env_Aspects_YN` TINYINT(1) NOT NULL DEFAULT 0,
@@ -113,11 +116,21 @@ SQL
               NEW.`Sr_Mgmt_Rev_BY`,
               NOW(), NOW());
 
-          SET @formula_id = LAST_INSERT_ID();
+          SET @FORMULA_ID = LAST_INSERT_ID();
+
+          INSERT INTO #{destination_db}.formulas_assets
+            (formula_id, asset_file_name, asset_content_type, asset_file_size, asset_updated_at, created_at, updated_at)
+          VALUES
+            (
+              @FORMULA_ID,
+              NEW.`FileName`,
+              NEW.`ContentType`,
+              NEW.`FileSize`,
+              NOW(), NOW(), NOW());
 
           INSERT INTO #{destination_db}.formulas_progress_steps
             (formula_id, progress_step_id, comments, completed, completed_on, created_at, updated_at)
-          SELECT @formula_id, progress_steps.id,
+          SELECT @FORMULA_ID, progress_steps.id,
               temp_fps.comments,
               temp_fps.completed,
               temp_fps.completed_on,
@@ -270,6 +283,16 @@ SQL
           WHERE code = OLD.`Product Code`;
 
           SELECT id FROM #{destination_db}.formulas WHERE code = NEW.`Product Code` INTO @FORMULA_ID;
+
+          -- This could update multiple records - disabled!
+          --UPDATE #{destination_db}.formulas_assets
+          --  SET asset_file_name = NEW.`FileName`,
+          --      asset_content_type = NEW.`ContentType`,
+          --      asset_file_size = NEW.`FileSize`,
+          --      asset_updated_at = NOW(),
+          --      created_at = NOW(),
+          --      updated_at = NOW()
+          --WHERE formula_id = @FORMULA_ID;
 
           SELECT id FROM #{destination_db}.progress_steps WHERE code = "Disc Nature-Duration-Complexity" INTO @STEP_ID;
           UPDATE #{destination_db}.formulas_progress_steps
@@ -881,6 +904,10 @@ SQL
 
           DELETE FROM #{destination_db}.formulas_progress_steps
           WHERE formula_id = @FORMULA_ID;
+
+          -- This could delete multiple records - disabled!
+          --DELETE FROM #{destination_db}.formulas_assets
+          --WHERE formula_id = @FORMULA_ID;
 
           DELETE FROM #{destination_db}.formulas
           WHERE id = @FORMULA_ID;

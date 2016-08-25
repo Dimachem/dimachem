@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
   devise_scope :user do
+    root to: 'formulas#index' # home page
+
     authenticated :user do
       root 'formulas#index', as: :authenticated_root
     end

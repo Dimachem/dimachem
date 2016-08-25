@@ -46,6 +46,9 @@ TODO:
 - move git repo to dimachem (done)
 - update steps order
 - update ETL for formula assets
+  - update migration .bat
+  - write tests
+  * 1:1 now 1:m !!
 - app authentication (login)
   - login to vpn (done)
   - todo app role and author
