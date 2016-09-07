@@ -44,7 +44,7 @@ Please feel free to use a different markup language if you do not plan to run
 
 TODO:
 - move git repo to dimachem (done)
-- update steps order
+- update steps order (done)
 - update ETL for formula assets
   - update migration .bat
   - write tests
@@ -52,7 +52,7 @@ TODO:
 - app authentication (login)
   - login to vpn (done)
   - todo app role and author
-- add status filter default open + all
+- add status filter default open + all (use browser? => save time/money)
 - get formula status list * open => complete => archived (done)
 
 - change access97 form design to get files from network drive * Steve todo?
