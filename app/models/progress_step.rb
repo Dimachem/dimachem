@@ -4,4 +4,5 @@ class ProgressStep < ActiveRecord::Base
 
   acts_as_list scope: :formulas
 
+  default_scope -> { order(position: :asc) }
 end

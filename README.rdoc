@@ -43,9 +43,7 @@ Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 TODO:
-- move git repo to dimachem (done)
-- update steps order (done)
-- update ETL for formula assets
+- update ETL for formula assets (prefix Asset)
   - update migration .bat
   - write tests
   * 1:1 now 1:m !!

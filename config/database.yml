@@ -38,11 +38,11 @@ test_sync:
 production:
   <<: *default
   database: dimachem
-  username:
-  password:
+  username: dimachemweb
+  password: web$QL2016
 
 production_sync:
   <<: *default
   database: chemfil1
-  username:
-  password:
+  username: dimachemweb
+  password: web$QL2016
