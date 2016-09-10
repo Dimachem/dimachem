@@ -10,8 +10,6 @@ gem 'mysql2'
 
 # # Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
-# # Use Uglifier as compressor for JavaScript assets
-# gem 'uglifier', '>= 1.3.0'
 # # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.1.0'
 # # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -61,6 +59,11 @@ end
 group :development do
   # # Access an IRB console on exception pages or by using <%= console %> in views
   # gem 'web-console', '~> 2.0'
+end
+
+group :production do
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -118,15 +118,15 @@ SQL
 
           SET @FORMULA_ID = LAST_INSERT_ID();
 
-          INSERT INTO #{destination_db}.formulas_assets
-            (formula_id, asset_file_name, asset_content_type, asset_file_size, asset_updated_at, created_at, updated_at)
-          VALUES
-            (
-              @FORMULA_ID,
-              NEW.`FileName`,
-              NEW.`ContentType`,
-              NEW.`FileSize`,
-              NOW(), NOW(), NOW());
+          -- INSERT INTO #{destination_db}.formulas_assets
+          --   (formula_id, asset_file_name, asset_content_type, asset_file_size, asset_updated_at, created_at, updated_at)
+          -- VALUES
+          --   (
+          --     @FORMULA_ID,
+          --     NEW.`FileName`,
+          --     NEW.`ContentType`,
+          --     NEW.`FileSize`,
+          --     NOW(), NOW(), NOW());
 
           INSERT INTO #{destination_db}.formulas_progress_steps
             (formula_id, progress_step_id, comments, completed, completed_on, created_at, updated_at)
@@ -285,14 +285,14 @@ SQL
           SELECT id FROM #{destination_db}.formulas WHERE code = NEW.`Product Code` INTO @FORMULA_ID;
 
           -- This could update multiple records - disabled!
-          --UPDATE #{destination_db}.formulas_assets
-          --  SET asset_file_name = NEW.`FileName`,
-          --      asset_content_type = NEW.`ContentType`,
-          --      asset_file_size = NEW.`FileSize`,
-          --      asset_updated_at = NOW(),
-          --      created_at = NOW(),
-          --      updated_at = NOW()
-          --WHERE formula_id = @FORMULA_ID;
+          -- UPDATE #{destination_db}.formulas_assets
+          --   SET asset_file_name = NEW.`FileName`,
+          --       asset_content_type = NEW.`ContentType`,
+          --       asset_file_size = NEW.`FileSize`,
+          --       asset_updated_at = NOW(),
+          --       created_at = NOW(),
+          --       updated_at = NOW()
+          -- WHERE formula_id = @FORMULA_ID;
 
           SELECT id FROM #{destination_db}.progress_steps WHERE code = "Disc Nature-Duration-Complexity" INTO @STEP_ID;
           UPDATE #{destination_db}.formulas_progress_steps
@@ -906,8 +906,8 @@ SQL
           WHERE formula_id = @FORMULA_ID;
 
           -- This could delete multiple records - disabled!
-          --DELETE FROM #{destination_db}.formulas_assets
-          --WHERE formula_id = @FORMULA_ID;
+          -- DELETE FROM #{destination_db}.formulas_assets
+          -- WHERE formula_id = @FORMULA_ID;
 
           DELETE FROM #{destination_db}.formulas
           WHERE id = @FORMULA_ID;
