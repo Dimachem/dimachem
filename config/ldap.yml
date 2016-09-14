@@ -39,10 +39,10 @@ test:
 
 production:
   host: 10.1.1.205
-  port: 389 # 636
+  port: 636
   attribute: cn
   base: ou=Systems,o=Windsor
   admin_user: cn=LDAP_UserRuby,o=Windsor
   admin_password: LDAPUserRuby
-  ssl: false # true
+  ssl: true
   # <<: *AUTHORIZATIONS
