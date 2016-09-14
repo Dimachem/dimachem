@@ -41,7 +41,7 @@ production:
   host: 10.1.1.205
   port: 636
   attribute: cn
-  base: ou=Systems,o=Windsor
+  base: o=Windsor
   admin_user: cn=LDAP_UserRuby,o=Windsor
   admin_password: LDAPUserRuby
   ssl: true
