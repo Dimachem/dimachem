@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160815011715) do
   create_table "users", force: :cascade do |t|
     t.string   "username",            limit: 255,             null: false
     t.datetime "remember_created_at"
+    t.string   "remember_token",      limit: 255
     t.integer  "sign_in_count",       limit: 4,   default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
