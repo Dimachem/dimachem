@@ -24,6 +24,7 @@ run rake db:generate_trigger_migration whenever a trigger changes
 * Database initialization
 rake db:migrate
 rake db:seed
+update arg_target_password and CHEMFIL1_DEVELOPMENT for environment
 run db\chemfil1\201605211310_New_Product_Progress_Data_migration_data.bat
 
 * How to run the test suite
