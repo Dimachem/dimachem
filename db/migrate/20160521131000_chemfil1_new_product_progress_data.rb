@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `MOC_Com` VARCHAR(255) NULL,
   `Sr_Mgmt_Rev_YN` TINYINT(1) NOT NULL DEFAULT 0,
   `Sr_Mgmt_Rev_Date` DATETIME NULL,
-  `Sr_Mgmt_Rev_Comment` VARCHAR(255) NULL,
+  `Sr_Mgmt_Rev_Com` VARCHAR(255) NULL,
   `Sr_Mgmt_Rev_BY` VARCHAR(255) NULL,
   `Sales to Date` DECIMAL(19,4) NULL,
   -- INDEX `MATERIAL ID` (`MATERIAL ID` ASC),
@@ -247,7 +247,7 @@ SQL
           UNION ALL
           SELECT  NEW.`Product Code` AS code,
                   "Sr_Mgmt_Rev" AS step_code,
-                  NEW.`Sr_Mgmt_Rev_Comment` AS comments,
+                  NEW.`Sr_Mgmt_Rev_Com` AS comments,
                   NEW.`Sr_Mgmt_Rev_YN` AS completed,
                   NEW.`Sr_Mgmt_Rev_Date` AS completed_on ) AS temp_fps,
               #{destination_db}.progress_steps
@@ -856,7 +856,7 @@ SQL
           UPDATE #{destination_db}.formulas_progress_steps
             SET completed = NEW.`Sr_Mgmt_Rev_YN`,
                 completed_on = NEW.`Sr_Mgmt_Rev_Date`,
-                comments = NEW.`Sr_Mgmt_Rev_Comment`,
+                comments = NEW.`Sr_Mgmt_Rev_Com`,
                 updated_at = NOW()
           WHERE progress_step_id = @STEP_ID
             AND formula_id = @FORMULA_ID;
@@ -874,7 +874,7 @@ SQL
               NOW()
             FROM (
               SELECT
-                NEW.`Sr_Mgmt_Rev_Comment` AS comments,
+                NEW.`Sr_Mgmt_Rev_Com` AS comments,
                 NEW.`Sr_Mgmt_Rev_YN` AS completed,
                 NEW.`Sr_Mgmt_Rev_Date` AS completed_on
               ) AS temp_fps

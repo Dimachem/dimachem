@@ -249,7 +249,7 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Comment` = NEW.comments,
+          SET `Sr_Mgmt_Rev_Com` = NEW.comments,
               `Sr_Mgmt_Rev_YN` = NEW.completed,
               `Sr_Mgmt_Rev_Date` = NEW.completed_on
         WHERE `Product Code` = @PRODUCT_CODE;
@@ -382,7 +382,7 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Comment` = NEW.comments,
+          SET `Sr_Mgmt_Rev_Com` = NEW.comments,
               `Sr_Mgmt_Rev_YN` = NEW.completed,
               `Sr_Mgmt_Rev_Date` = NEW.completed_on
         WHERE `Product Code` = @PRODUCT_CODE;
@@ -515,7 +515,7 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Sr_Mgmt_Rev" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `Sr_Mgmt_Rev_Comment` = NULL,
+          SET `Sr_Mgmt_Rev_Com` = NULL,
               `Sr_Mgmt_Rev_YN` = 0,
               `Sr_Mgmt_Rev_Date` = NULL
         WHERE `Product Code` = @PRODUCT_CODE;

@@ -69,7 +69,7 @@ SELECT
   [New Product Progress Data].MOC_Com,
   [New Product Progress Data].Sr_Mgmt_Rev_YN,
   [New Product Progress Data].Sr_Mgmt_Rev_Date,
-  [New Product Progress Data].Sr_Mgmt_Rev_Comment,
+  [New Product Progress Data].Sr_Mgmt_Rev_Com,
   [New Product Progress Data].Sr_Mgmt_Rev_BY,
   [New Product Progress Data].[Sales to Date]
 FROM [New Product Progress Data]
