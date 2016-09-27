@@ -237,9 +237,9 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `MOC Com` = NEW.comments,
-              `MOC YN` = NEW.completed,
-              `MOC Date` = NEW.completed_on
+          SET `MOC_Com` = NEW.comments,
+              `MOC_YN` = NEW.completed,
+              `MOC_Date` = NEW.completed_on
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE chemfil1_development.new_product_progress_data
@@ -370,9 +370,9 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `MOC Com` = NEW.comments,
-              `MOC YN` = NEW.completed,
-              `MOC Date` = NEW.completed_on
+          SET `MOC_Com` = NEW.comments,
+              `MOC_YN` = NEW.completed,
+              `MOC_Date` = NEW.completed_on
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE chemfil1_development.new_product_progress_data
@@ -503,9 +503,9 @@ ActiveRecord::Schema.define(version: 20160815011715) do
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "MOC" THEN
         UPDATE chemfil1_development.new_product_progress_data
-          SET `MOC Com` = NULL,
-              `MOC YN` = 0,
-              `MOC Date` = NULL
+          SET `MOC_Com` = NULL,
+              `MOC_YN` = 0,
+              `MOC_Date` = NULL
         WHERE `Product Code` = @PRODUCT_CODE;
       ELSEIF @STEP_CODE = "Env_Aspects" THEN
         UPDATE chemfil1_development.new_product_progress_data

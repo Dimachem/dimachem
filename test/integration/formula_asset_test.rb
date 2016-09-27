@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Integration
-  class FormulaAsset < ActiveSupport::TestCase
+  class FormulaAssetTest < ActiveSupport::TestCase
 
     # test 'insert formula asset'
     # test 'update formula asset'

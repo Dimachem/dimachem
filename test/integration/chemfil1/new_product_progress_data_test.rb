@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Integration
   module Chemfil1
-    class NewProductProgressData < ActiveSupport::TestCase
+    class NewProductProgressDataTest < ActiveSupport::TestCase
 
       def setup
         @data = {
@@ -48,7 +48,7 @@ module Integration
 
       test 'insert new product progress data' do
         ActiveRecord::Base.connection.execute(insert_sql)
-        formula = ::Formula.find_by_code(@data[:insert][:code])
+        formula = Formula.find_by_code(@data[:insert][:code])
 
         assert_equal(@data[:insert][:code], formula.code)
         assert_equal(Date.today, formula.created_at.to_date)
@@ -58,7 +58,7 @@ module Integration
       test 'update new product progress data' do
         ActiveRecord::Base.connection.execute(insert_sql)
         ActiveRecord::Base.connection.reset!
-        org_formula = ::Formula.find_by_code(@data[:insert][:code])
+        org_formula = Formula.find_by_code(@data[:insert][:code])
         sleep(1)
 
         sql = <<-SQL
@@ -72,7 +72,7 @@ module Integration
         SQL
 
         ActiveRecord::Base.connection.execute(sql)
-        formula = ::Formula.find_by_code(@data[:update][:code])
+        formula = Formula.find_by_code(@data[:update][:code])
 
         assert_equal(@data[:update][:code], formula.code)
         assert_equal(@data[:update][:name], formula.name)
@@ -90,7 +90,7 @@ module Integration
         sql = update_sql(['tds_msds_'])
 
         ActiveRecord::Base.connection.execute(sql)
-        formula = ::Formula.find_by_code(@data[:insert][:code])
+        formula = Formula.find_by_code(@data[:insert][:code])
         formulas_progress_step = formula.formulas_progress_steps.first
 
         assert_equal((@data[:update][:tds_msds_yn] == 1), formulas_progress_step.completed)
@@ -106,7 +106,7 @@ module Integration
         sql = update_sql(steps)
 
         ActiveRecord::Base.connection.execute(sql)
-        formula = ::Formula.find_by_code(@data[:insert][:code])
+        formula = Formula.find_by_code(@data[:insert][:code])
         formulas_progress_steps = formula.formulas_progress_steps
 
         steps.each_with_index do |step, i|
@@ -129,7 +129,7 @@ module Integration
         ActiveRecord::Base.connection.execute(sql)
 
         assert_raises(ActiveRecord::RecordNotFound) {
-          ::Formula.find_by_code!(@data[:insert][:code])
+          Formula.find_by_code!(@data[:insert][:code])
         }
       end
 

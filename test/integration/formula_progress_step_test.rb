@@ -36,7 +36,7 @@ module Integration
     end
 
     test 'insert formula progress step' do
-      formula = ::Formula.first
+      formula = Formula.first
       formula_progress_step = formula.formulas_progress_steps.create!(@data[:insert])
       r = ActiveRecord::Base.connection.raw_connection.query(select_sql(formula.code), as: :hash)
 
@@ -50,7 +50,7 @@ module Integration
       ActiveRecord::Base.connection.execute(insert_sql)
       ActiveRecord::Base.connection.reset!
 
-      formula = ::Formula.find_by_code!(@data[:insert_sync][:code])
+      formula = Formula.find_by_code!(@data[:insert_sync][:code])
       formula_progress_step = formula.formulas_progress_steps.first
 
       formula_progress_step.update_attributes!(@data[:update])
@@ -66,7 +66,7 @@ module Integration
       ActiveRecord::Base.connection.execute(insert_sql)
       ActiveRecord::Base.connection.reset!
 
-      formula = ::Formula.find_by_code!(@data[:insert_sync][:code])
+      formula = Formula.find_by_code!(@data[:insert_sync][:code])
       formula_progress_step = formula.formulas_progress_steps.first
 
       formula_progress_step.destroy

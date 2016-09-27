@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Integration
-  class Formula < ActiveSupport::TestCase
+  class FormulaTest < ActiveSupport::TestCase
 
     def setup
       @data = {
@@ -27,7 +27,7 @@ module Integration
     end
 
     test 'insert formula' do
-      formula = ::Formula.create!(@data[:insert])
+      formula = Formula.create!(@data[:insert])
       r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
 
       assert_equal 1, r.count
@@ -43,7 +43,7 @@ module Integration
       ActiveRecord::Base.connection.execute(insert_sql)
       ActiveRecord::Base.connection.reset!
 
-      formula = ::Formula.find_by_code!(@data[:insert][:code])
+      formula = Formula.find_by_code!(@data[:insert][:code])
       formula.update_attributes!(@data[:update])
       r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
 
@@ -59,7 +59,7 @@ module Integration
       ActiveRecord::Base.connection.execute(insert_sql)
       ActiveRecord::Base.connection.reset!
 
-      formula = ::Formula.find_by_code!(@data[:insert][:code])
+      formula = Formula.find_by_code!(@data[:insert][:code])
       formula.destroy
       r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
 
