@@ -6,6 +6,24 @@ class Formula < ActiveRecord::Base
   accepts_nested_attributes_for :formulas_progress_steps, reject_if: :reject_formula_progress_step #, allow_destroy: true
   accepts_nested_attributes_for :formulas_assets, reject_if: :reject_formula_asset #, allow_destroy: true
 
+  scope :state, -> (state) { where state: state }
+
+  state_machine :state, :initial => :open do
+
+    event :complete do
+      transition :open => :completed
+    end
+
+    event :archive do
+      transition :open => :archived
+    end
+
+  end
+
+  def self.state_options(with_all=false)
+    state_machine.states.map{|s| [s.name, s.name] }
+  end
+
   def reject_formula_progress_step(attributes)
     attributes[:completed] == '0' &&
     attributes[:completed_on].blank? &&
@@ -14,18 +32,6 @@ class Formula < ActiveRecord::Base
 
   def reject_formula_asset(attributes)
     attributes[:asset].blank?
-  end
-
-  state_machine :state, :initial => :opened do
-
-    event :complete do
-      transition :opened => :completed
-    end
-
-    event :archive do
-      transition :opened => :archived
-    end
-
   end
 
   trigger.after(:insert) do
@@ -39,9 +45,9 @@ class Formula < ActiveRecord::Base
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       INSERT INTO #{destination_db}.new_product_progress_data
-        (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
+        (`Product Code`, `Product Name`, `Priority`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
       VALUES
-        (NEW.code, NEW.name, NEW.state, NEW.comments, NEW.sales_to_date, NEW.reviewed_by);
+        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.comments, NEW.reviewed_by);
     END thisTrigger
     SQL
   end
@@ -58,9 +64,9 @@ class Formula < ActiveRecord::Base
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       UPDATE #{destination_db}.new_product_progress_data
         SET `Product Name` = NEW.name,
+            `Priority` = NEW.priority,
             `Status` = NEW.state,
             `Comments` = NEW.comments,
-            `Sales to Date` = NEW.sales_to_date,
             `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
       WHERE `Product Code` = OLD.code;
     END thisTrigger

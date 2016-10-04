@@ -8,16 +8,14 @@ module Integration
         insert: {
           code: SecureRandom.uuid,
           name: 'inserted name',
-          state: 'opened',
+          state: 'open',
           comments: 'inserted comments',
-          sales_to_date: 10,
           reviewed_by: 'inserted reviewer'
         },
         update: {
           name: 'updated name',
           state: 'completed',
           comments: 'updated comments',
-          sales_to_date: 100,
           reviewed_by: 'updated reviewer'
         }
       }
@@ -35,7 +33,6 @@ module Integration
       assert_equal @data[:insert][:name], r.first['Product Name']
       assert_equal @data[:insert][:state], r.first['Status']
       assert_equal @data[:insert][:comments], r.first['Comments']
-      assert_equal @data[:insert][:sales_to_date], r.first['Sales to Date']
       assert_equal @data[:insert][:reviewed_by], r.first['Sr_Mgmt_Rev_BY']
     end
 
@@ -51,7 +48,6 @@ module Integration
       assert_equal @data[:update][:name], r.first['Product Name']
       assert_equal @data[:update][:state], r.first['Status']
       assert_equal @data[:update][:comments], r.first['Comments']
-      assert_equal @data[:update][:sales_to_date], r.first['Sales to Date']
       assert_equal @data[:update][:reviewed_by], r.first['Sr_Mgmt_Rev_BY']
     end
 
@@ -79,13 +75,12 @@ module Integration
     def insert_sql
       sql = <<-SQL
         INSERT INTO chemfil1_test.new_product_progress_data
-          (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
+          (`Product Code`, `Product Name`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
         VALUES (
           "#{@data[:insert][:code]}",
           "#{@data[:insert][:name]}",
           "#{@data[:insert][:state]}",
           "#{@data[:insert][:comments]}",
-          "#{@data[:insert][:sales_to_date]}",
           "#{@data[:insert][:reviewed_by]}"
         )
       SQL

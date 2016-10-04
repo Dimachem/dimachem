@@ -11,7 +11,6 @@ module Integration
             name: 'inserted name',
             state: 'inserted status',
             comments: 'inserted comments',
-            sales_to_date: 10,
             reviewed_by: 'insert reviewer',
             tds_msds_yn: 0,
             tds_msds_date: '2015-07-11 16:00:09',
@@ -22,7 +21,6 @@ module Integration
             name: 'updated name',
             state: 'updated status',
             comments: 'updated comments',
-            sales_to_date: 100,
             reviewed_by: 'updated reviewer',
             tds_msds_yn: 1,
             tds_msds_date: '2016-07-11 16:00:09',
@@ -66,8 +64,7 @@ module Integration
             SET `Product Code` = "#{@data[:update][:code]}",
                 `Product Name` = "#{@data[:update][:name]}",
                 `Status` = "#{@data[:update][:state]}",
-                `Comments` = "#{@data[:update][:comments]}",
-                `Sales to Date` = "#{@data[:update][:sales_to_date]}"
+                `Comments` = "#{@data[:update][:comments]}"
           WHERE `Product Code` = "#{@data[:insert][:code]}"
         SQL
 
@@ -78,7 +75,6 @@ module Integration
         assert_equal(@data[:update][:name], formula.name)
         assert_equal(@data[:update][:state], formula.state)
         assert_equal(@data[:update][:comments], formula.comments)
-        assert_equal(@data[:update][:sales_to_date], formula.sales_to_date)
         assert_equal(org_formula.created_at, formula.created_at)
         assert(org_formula.updated_at < formula.updated_at)
       end
@@ -160,14 +156,13 @@ module Integration
       def insert_sql
         sql = <<-SQL
           INSERT INTO chemfil1_test.new_product_progress_data
-            (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`,
+            (`Product Code`, `Product Name`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`,
             `TDS MSDS YN`, `TDS MSDS Date`, `TDS MSDS Com`)
           VALUES (
             "#{@data[:insert][:code]}",
             "#{@data[:insert][:name]}",
             "#{@data[:insert][:state]}",
             "#{@data[:insert][:comments]}",
-            "#{@data[:insert][:sales_to_date]}",
             "#{@data[:insert][:reviewed_by]}",
             "#{@data[:insert][:tds_msds_yn]}",
             "#{@data[:insert][:tds_msds_date]}",

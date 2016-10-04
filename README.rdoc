@@ -44,14 +44,8 @@ Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 TODO:
-- update ETL for formula assets (prefix Asset)
-  - update migration .bat
-  - write tests
-  * 1:1 now 1:m !!
 - app authentication (login)
-  - login to vpn (done)
   - todo app role and author
-- add status filter default open + all (use browser? => save time/money)
 - get formula status list * open => complete => archived (done)
 
 - change access97 form design to get files from network drive * Steve todo?
@@ -63,3 +57,6 @@ TODO:
 - https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
 - http://www.userbooster.com/en/download/openldap-for-windows.aspx
 - http://railscasts.com/episodes/196-nested-model-form-part-1
+
+
+# TODO: add multi-sort to Ransack::Helpers::FormHelper#sort_link ?q[s][]=priority+asc&q[s][]=code+asc

@@ -3,7 +3,17 @@ class FormulasController < ApplicationController
 
   # GET /formulas
   def index
-    @formulas = Formula.all
+    # prepends priority to the sorting
+    params[:q] ||= {}
+    params[:q]['s'] = Array.wrap(params[:q]['s']).unshift('priority asc')
+    # set default filter
+    params[:q]['state_eq'] = 'open' unless params[:q].has_key?('state_eq')
+
+    @state_select_options = Formula.state_options(true)
+    @state_selected_option = params[:q]['state_eq']
+
+    @query = Formula.order(:priority).ransack(params[:q])
+    @formulas = @query.result
   end
 
   # GET /formulas/1
@@ -17,6 +27,7 @@ class FormulasController < ApplicationController
 
   # GET /formulas/new
   def new
+    @state_select_options = Formula.state_options
     @formula = Formula.new
 
     @formula.formulas_assets.build
@@ -28,6 +39,7 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1/edit
   def edit
+    @state_select_options = Formula.state_options
     build_steps = ProgressStep.all - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
 
     @formula.formulas_assets.build

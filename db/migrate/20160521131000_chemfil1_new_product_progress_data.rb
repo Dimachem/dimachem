@@ -105,14 +105,14 @@ SQL
 
           SET @TRIGGER_CHECKS_CHEMFIL1 = FALSE;
           INSERT INTO #{destination_db}.formulas
-            (code, name, state, comments, sales_to_date, reviewed_by, created_at, updated_at)
+            (code, name, priority, state, comments, reviewed_by, created_at, updated_at)
           VALUES
             (
               NEW.`Product Code`,
               NEW.`Product Name`,
-              NEW.`Status`,
+              NEW.`Priority`,
+              LCASE(NEW.`Status`),
               NEW.`Comments`,
-              NEW.`Sales to Date`,
               NEW.`Sr_Mgmt_Rev_BY`,
               NOW(), NOW());
 
@@ -275,9 +275,9 @@ SQL
           UPDATE #{destination_db}.formulas
             SET code = NEW.`Product Code`,
                 name = NEW.`Product Name`,
-                state = NEW.`Status`,
+                priority = NEW.`Priority`,
+                state = LCASE(NEW.`Status`),
                 comments = NEW.`Comments`,
-                sales_to_date = NEW.`Sales to Date`,
                 reviewed_by = NEW.`Sr_Mgmt_Rev_BY`,
                 updated_at = NOW()
           WHERE code = OLD.`Product Code`;

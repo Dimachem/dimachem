@@ -17,9 +17,9 @@ class CreateTriggersFormulas < ActiveRecord::Migration
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       INSERT INTO #{destination_db}.new_product_progress_data
-        (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
+        (`Product Code`, `Product Name`, `Priority`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
       VALUES
-        (NEW.code, NEW.name, NEW.state, NEW.comments, NEW.sales_to_date, NEW.reviewed_by);
+        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.comments, NEW.reviewed_by);
     END thisTrigger;
       SQL_ACTIONS
     end
@@ -38,9 +38,9 @@ class CreateTriggersFormulas < ActiveRecord::Migration
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       UPDATE #{destination_db}.new_product_progress_data
         SET `Product Name` = NEW.name,
+            `Priority` = New.priority,
             `Status` = NEW.state,
             `Comments` = NEW.comments,
-            `Sales to Date` = NEW.sales_to_date,
             `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
       WHERE `Product Code` = OLD.code;
     END thisTrigger;

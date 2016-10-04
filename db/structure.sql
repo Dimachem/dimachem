@@ -26,15 +26,15 @@ CREATE TABLE `formulas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
   `state` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `comments` text COLLATE utf8_unicode_ci,
-  `sales_to_date` decimal(19,4) DEFAULT NULL,
   `reviewed_by` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_formulas_on_code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=980190963 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1363 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -55,9 +55,9 @@ BEGIN
     
           SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
           INSERT INTO chemfil1_development.new_product_progress_data
-            (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
+            (`Product Code`, `Product Name`, `Priority`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
           VALUES
-            (NEW.code, NEW.name, NEW.state, NEW.comments, NEW.sales_to_date, NEW.reviewed_by);
+            (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.comments, NEW.reviewed_by);
         END thisTrigger;
 END */;;
 DELIMITER ;
@@ -85,9 +85,9 @@ BEGIN
           SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
           UPDATE chemfil1_development.new_product_progress_data
             SET `Product Name` = NEW.name,
+                `Priority` = New.priority,
                 `Status` = NEW.state,
                 `Comments` = NEW.comments,
-                `Sales to Date` = NEW.sales_to_date,
                 `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
           WHERE `Product Code` = OLD.code;
         END thisTrigger;
@@ -672,7 +672,7 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-26 19:57:00
+-- Dump completed on 2016-10-04  9:53:38
 INSERT INTO schema_migrations (version) VALUES ('20160521131000');
 
 INSERT INTO schema_migrations (version) VALUES ('20160609141334');

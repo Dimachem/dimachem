@@ -40,6 +40,8 @@ gem 'turbolinks'
 # it can be removed once the ETL is disbanded
 gem 'hairtrigger'
 gem 'acts_as_list'
+gem 'ransack'
+# gem 'will_paginate'
 gem 'paperclip', '~> 4.3'
 # gem 'carrierwave'
 gem 'state_machine'

@@ -26,7 +26,6 @@ class FormulasControllerTest < ActionController::TestCase
         comments: @formula.comments,
         name: @formula.name,
         reviewed_by: @formula.reviewed_by,
-        sales_to_date: @formula.sales_to_date,
         state: @formula.state
       }
     end
@@ -50,7 +49,6 @@ class FormulasControllerTest < ActionController::TestCase
       comments: @formula.comments,
       name: @formula.name,
       reviewed_by: @formula.reviewed_by,
-      sales_to_date: @formula.sales_to_date,
       state: @formula.state
     }
 
