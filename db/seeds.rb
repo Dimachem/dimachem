@@ -19,8 +19,8 @@ progress_steps = [
   {code: 'MOC', position: 15, description: 'Manufacturing MOC considered?', effective_on: Time.now},
   {code: 'Env_Aspects', position: 16, description: 'Environmental Impacts/Aspects considered?', effective_on: Time.now},
   {code: 'Sr_Mgmt_Rev', position: 17, description: 'Senior Management Review Completed', effective_on: Time.now},
-  {code: 'Form to Purch Mang', position: 18, description: 'N/A 1', effective_on: Time.now},
-  {code: 'Test proc Forw', position: 19, description: 'N/A 2', effective_on: Time.now}
+  {code: 'Form to Purch Mang', position: 18, description: 'N/A 1', effective_on: Time.now-2.days, effective_until: Time.now-1.day},
+  {code: 'Test proc Forw', position: 19, description: 'N/A 2', effective_on: Time.now-2.days, effective_until: Time.now-1.day}
 ]
 ProgressStep.create!(progress_steps)
 

@@ -132,7 +132,7 @@ module Integration
       private
 
       def try_parse_datetime(s)
-        ::DateTime.parse(s)
+        Time.zone.parse(s)
       rescue TypeError
         nil
       end

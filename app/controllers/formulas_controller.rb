@@ -18,7 +18,7 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1
   def show
-    build_steps = ProgressStep.all - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
+    build_steps = ProgressStep.active - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
 
     build_steps.each do |progress_step|
       @formula.formulas_progress_steps.build(progress_step: progress_step)
@@ -32,7 +32,7 @@ class FormulasController < ApplicationController
 
     @formula.formulas_assets.build
 
-    ProgressStep.all.each do |progress_step|
+    ProgressStep.active.each do |progress_step|
       @formula.formulas_progress_steps.build(progress_step: progress_step)
     end
   end
@@ -40,7 +40,7 @@ class FormulasController < ApplicationController
   # GET /formulas/1/edit
   def edit
     @state_select_options = Formula.state_options
-    build_steps = ProgressStep.all - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
+    build_steps = ProgressStep.active - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
 
     @formula.formulas_assets.build
 

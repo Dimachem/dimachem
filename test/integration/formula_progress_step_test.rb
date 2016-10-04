@@ -21,12 +21,12 @@ module Integration
         insert: {
           progress_step_id: @step.id,
           completed: true,
-          completed_on: Time.now.utc,
+          completed_on: Time.now,
           comments: 'inserted comments'
         },
         update: {
         completed: false,
-        completed_on: Time.now.utc - 1.day,
+        completed_on: Time.now - 1.day,
         comments: 'update comments'
         }
       }
