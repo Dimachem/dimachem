@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="form-group">
+    <%= f.attribute_select({include_blank: 'select attribute'}, {class: "form-control"}, 'sort'.freeze) %>
+    <%= f.sort_direction_select({}, {class: "form-control"})%>
+    <%= link_to_remove_search_field :sort %>
+  </div>
+</div>

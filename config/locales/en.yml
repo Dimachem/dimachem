@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+
+  date:
+    order:
+      - !ruby/symbol month
+      - !ruby/symbol day
+      - !ruby/symbol year
+    formats:
+      default: "%m/%d/%Y"

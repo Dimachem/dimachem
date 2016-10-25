@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="form-group">
+    <%= f.attribute_fields do |a| %>
+      <%= a.attribute_select({include_blank: 'select attribute'}, {class: "form-control"}) %>
+    <% end %>
+    <%= f.predicate_select({}, {class: "form-control"}) %>
+    <%= f.value_fields do |v| %>
+      <%= v.text_field :value, class: "form-control", placeholder: 'value' %>
+    <% end %>
+    <%= link_to_remove_search_field :condition %>
+  </div>
+</div>

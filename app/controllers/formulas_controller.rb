@@ -3,17 +3,11 @@ class FormulasController < ApplicationController
 
   # GET /formulas
   def index
-    # prepends priority to the sorting
-    params[:q] ||= {}
-    params[:q]['s'] = Array.wrap(params[:q]['s']).unshift('priority asc')
-    # set default filter
-    params[:q]['state_eq'] = 'open' unless params[:q].has_key?('state_eq')
+    @search = Formula.ransack(params[:q])
+    @search.build_sort({name: 'priority', dir: 'asc'}) if @search.sorts.blank?
+    @search.state_eq = 'open' unless params_has_state_condition?
 
-    @state_select_options = Formula.state_options(true)
-    @state_selected_option = params[:q]['state_eq']
-
-    @query = Formula.order(:priority).ransack(params[:q])
-    @formulas = @query.result
+    @formulas = @search.result
   end
 
   # GET /formulas/1
@@ -76,6 +70,16 @@ class FormulasController < ApplicationController
   # end
 
   private
+
+    def params_has_state_condition?
+      return false unless params[:q].try(:[], :c).present?
+      params[:q][:c].values.any? do |c|
+        # any condition attributes include state?
+        c[:a].values.any? {|a| a.values.include? 'state'} # &&
+        # c[:v].values.any? {|v| v.values.include? 'all'}
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_formula
       @formula = Formula.find(params[:id])
@@ -84,7 +88,7 @@ class FormulasController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def formula_params
       params.require(:formula)
-        .permit(:code, :name, :state, :comments, :sales_to_date, :reviewed_by,
+        .permit(:code, :name, :state, :priority, :comments, :sales_to_date, :reviewed_by,
           formulas_assets_attributes: [:id, :asset],
           formulas_progress_steps_attributes: [:id, :progress_step_id, :completed, :completed_on, :comments])
     end

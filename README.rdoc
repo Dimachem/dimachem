@@ -31,6 +31,8 @@ run db\chemfil1\201605211310_New_Product_Progress_Data_migration_data.bat
 rake db:migrate RAILS_ENV=test
 rake db:seed RAILS_ENV=test
 rake test RAILS_ENV=test
+ * to run single test: TESTOPTS="--name=..."
+ * to run single file: TEST=test/a_test.rb
 
 * Services (job queues, cache servers, search engines, etc.)
 

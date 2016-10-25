@@ -9,7 +9,7 @@ class Chemfil1NewProductProgressData < ActiveRecord::Migration
 CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `Product Code` VARCHAR(255) NOT NULL,
   `Product Name` VARCHAR(255) NULL,
-  -- `MATERIAL ID` VARCHAR(255) NULL,
+  `MATERIAL ID` VARCHAR(255) NULL, -- No longer used
   `Start Date` DATETIME NULL,
   `Sales Request?` TINYINT(1) NOT NULL DEFAULT 0,
   `Priority` INT(10) NULL,
@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `Formula Entered Com` VARCHAR(255) NULL,
   `Comments` TEXT NULL,
   `Status` VARCHAR(255) NULL,
-  -- `Formula Image` MEDIUMBLOB NULL,
+  `Formula Image` MEDIUMBLOB NULL, -- No longer used
   -- `FileName` VARCHAR(255) NULL,
   -- `ContentType` VARCHAR(255) NULL,
   -- `FileSize` INT(10) NULL,
-  -- `QC Image` MEDIUMBLOB NULL,
-  -- `Other Image` MEDIUMBLOB NULL,
+  `QC Image` MEDIUMBLOB NULL, -- No longer used
+  `Other Image` MEDIUMBLOB NULL, -- No longer used
   `Env_Aspects_YN` TINYINT(1) NOT NULL DEFAULT 0,
   `Env_Aspects_Date` DATETIME NULL,
   `Env_Aspects_Com` VARCHAR(255) NULL,

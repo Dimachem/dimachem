@@ -17,4 +17,19 @@ module ApplicationHelper
     end
     nil
   end
+
+  def link_to_remove_search_field(type)
+    link_to "remove", '#', class: "remove_#{type}"
+  end
+
+  def link_to_add_search_field(f, type)
+    new_object, name = f.object.send("build_#{type}"), "#{type}_fields"
+    id = "new_#{type}"
+
+    fields = f.send(name, new_object, child_index: id) do |builder|
+      render("search/#{name}", f: builder)
+    end
+
+    link_to("Add #{type.to_s.titleize}", '#', class: "add_#{type}", data: {id: id, fields: fields.gsub("\n", "")})
+  end
 end
