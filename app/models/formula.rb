@@ -6,6 +6,8 @@ class Formula < ActiveRecord::Base
   accepts_nested_attributes_for :formulas_progress_steps, reject_if: :reject_formula_progress_step #, allow_destroy: true
   accepts_nested_attributes_for :formulas_assets, reject_if: :reject_formula_asset #, allow_destroy: true
 
+  validates :code, presence: true
+
   scope :state, -> (state) { where state: state }
 
   state_machine :state, :initial => :open do
@@ -25,7 +27,7 @@ class Formula < ActiveRecord::Base
   end
 
   def reject_formula_progress_step(attributes)
-    attributes[:completed] == '0' &&
+    attributes[:completed] == 'false' &&
     attributes[:completed_on].blank? &&
     attributes[:comments].blank?
   end

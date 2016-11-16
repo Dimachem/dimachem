@@ -48,9 +48,6 @@ Please feel free to use a different markup language if you do not plan to run
 TODO:
 - app authentication (login)
   - todo app role and author
-- get formula status list * open => complete => archived (done)
-
-- change access97 form design to get files from network drive * Steve todo?
 
 - configure fixtures to truncate db tables to reset auto increment
 - create development ldap env
@@ -59,6 +56,3 @@ TODO:
 - https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
 - http://www.userbooster.com/en/download/openldap-for-windows.aspx
 - http://railscasts.com/episodes/196-nested-model-form-part-1
-
-
-# TODO: add multi-sort to Ransack::Helpers::FormHelper#sort_link ?q[s][]=priority+asc&q[s][]=code+asc

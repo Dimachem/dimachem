@@ -60,12 +60,9 @@ CREATE TABLE IF NOT EXISTS `New_Product_Progress_Data` (
   `Formula Entered Com` VARCHAR(255) NULL,
   `Comments` TEXT NULL,
   `Status` VARCHAR(255) NULL,
-  `Formula Image` MEDIUMBLOB NULL, -- No longer used
-  -- `FileName` VARCHAR(255) NULL,
-  -- `ContentType` VARCHAR(255) NULL,
-  -- `FileSize` INT(10) NULL,
-  `QC Image` MEDIUMBLOB NULL, -- No longer used
-  `Other Image` MEDIUMBLOB NULL, -- No longer used
+  -- `Formula Image` MEDIUMBLOB NULL, -- No longer used
+  -- `QC Image` MEDIUMBLOB NULL, -- No longer used
+  -- `Other Image` MEDIUMBLOB NULL, -- No longer used
   `Env_Aspects_YN` TINYINT(1) NOT NULL DEFAULT 0,
   `Env_Aspects_Date` DATETIME NULL,
   `Env_Aspects_Com` VARCHAR(255) NULL,

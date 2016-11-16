@@ -12,35 +12,22 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1
   def show
-    build_steps = ProgressStep.active - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
-
-    build_steps.each do |progress_step|
-      @formula.formulas_progress_steps.build(progress_step: progress_step)
-    end
+    build_progress_steps(@formula)
   end
 
   # GET /formulas/new
   def new
     @state_select_options = Formula.state_options
     @formula = Formula.new
-
     @formula.formulas_assets.build
-
-    ProgressStep.active.each do |progress_step|
-      @formula.formulas_progress_steps.build(progress_step: progress_step)
-    end
+    build_progress_steps(@formula)
   end
 
   # GET /formulas/1/edit
   def edit
     @state_select_options = Formula.state_options
-    build_steps = ProgressStep.active - @formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
-
     @formula.formulas_assets.build
-
-    build_steps.each do |progress_step|
-      @formula.formulas_progress_steps.build(progress_step: progress_step)
-    end
+    build_progress_steps(@formula)
   end
 
   # POST /formulas
@@ -50,6 +37,8 @@ class FormulasController < ApplicationController
     if @formula.save
       redirect_to @formula, notice: 'Formula was successfully created.'
     else
+      @state_select_options = Formula.state_options
+      build_progress_steps(@formula)
       render :new
     end
   end
@@ -59,6 +48,8 @@ class FormulasController < ApplicationController
     if @formula.update(formula_params)
       redirect_to @formula, notice: 'Formula was successfully updated.'
     else
+      @state_select_options = Formula.state_options
+      build_progress_steps(@formula)
       render :edit
     end
   end
@@ -71,25 +62,32 @@ class FormulasController < ApplicationController
 
   private
 
-    def params_has_state_condition?
-      return false unless params[:q].try(:[], :c).present?
-      params[:q][:c].values.any? do |c|
-        # any condition attributes include state?
-        c[:a].values.any? {|a| a.values.include? 'state'} # &&
-        # c[:v].values.any? {|v| v.values.include? 'all'}
-      end
+  def build_progress_steps(formula)
+    build_steps = ProgressStep.active - formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
+    build_steps.each do |progress_step|
+      formula.formulas_progress_steps.build(progress_step: progress_step)
     end
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_formula
-      @formula = Formula.find(params[:id])
+  def params_has_state_condition?
+    return false unless params[:q].try(:[], :c).present?
+    params[:q][:c].values.any? do |c|
+      # any condition attributes include state?
+      c[:a].values.any? {|a| a.values.include? 'state'} # &&
+      # c[:v].values.any? {|v| v.values.include? 'all'}
     end
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def formula_params
-      params.require(:formula)
-        .permit(:code, :name, :state, :priority, :comments, :sales_to_date, :reviewed_by,
-          formulas_assets_attributes: [:id, :asset],
-          formulas_progress_steps_attributes: [:id, :progress_step_id, :completed, :completed_on, :comments])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_formula
+    @formula = Formula.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def formula_params
+    params.require(:formula)
+      .permit(:code, :name, :state, :priority, :comments, :sales_to_date, :reviewed_by,
+        formulas_assets_attributes: [:id, :asset],
+        formulas_progress_steps_attributes: [:id, :progress_step_id, :completed, :completed_on, :comments])
+  end
 end

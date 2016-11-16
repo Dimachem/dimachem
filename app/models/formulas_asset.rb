@@ -1,8 +1,5 @@
 class FormulasAsset < ActiveRecord::Base
-  has_attached_file :asset,
-    url: "/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename",
-    path: ":rails_root/public/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename",
-    preserve_files: true
+  has_attached_file :asset, preserve_files: true
 
   belongs_to :formula
 
