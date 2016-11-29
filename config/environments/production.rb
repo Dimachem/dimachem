@@ -80,6 +80,7 @@ Rails.application.configure do
 
   # These will get merged into Paperclip::Attachment.default_options
   config.paperclip_defaults = {
-    url: "/#{ENV['RAILS_RELATIVE_URL_ROOT']}/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename"
+    url: "/dimachem/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename",
+    path: ":rails_root/public/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename"
   }
 end

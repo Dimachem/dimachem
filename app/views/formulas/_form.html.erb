@@ -17,9 +17,9 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <a data-toggle="collapse" href="#form_details">Details for <%= @formula.name %></a>
+      <a data-toggle="collapse" href="#form_details">Details for <%= @details_title %></a>
     </div>
-    <div id='form_details' class="panel-body collapse">
+    <div id='form_details' class="panel-body collapse <%= @default_collapse_state %>">
       <div class="row">
         <div class="col-sm-4">
           <%= f.label :name, class: "control-label" %>

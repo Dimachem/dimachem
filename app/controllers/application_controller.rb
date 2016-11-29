@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+
+  def get_query(cookie_key)
+    cookies.delete(cookie_key) if params[:clear_query]
+    cookies[cookie_key] = params[:q].to_json if params[:q]
+    @query = params[:q].presence || JSON.load(cookies[cookie_key])
+  end
 end

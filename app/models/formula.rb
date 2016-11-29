@@ -1,4 +1,6 @@
 class Formula < ActiveRecord::Base
+  after_initialize :set_defaults
+
   has_many :formulas_progress_steps
   has_many :progress_steps, -> { order(position: :asc) }, through: :formulas_progress_steps
   has_many :formulas_assets
@@ -6,7 +8,8 @@ class Formula < ActiveRecord::Base
   accepts_nested_attributes_for :formulas_progress_steps, reject_if: :reject_formula_progress_step #, allow_destroy: true
   accepts_nested_attributes_for :formulas_assets, reject_if: :reject_formula_asset #, allow_destroy: true
 
-  validates :code, presence: true
+  validates :code, presence: true, uniqueness: true
+  validates :priority, inclusion: { in: (1..3) }
 
   scope :state, -> (state) { where state: state }
 
@@ -91,4 +94,9 @@ class Formula < ActiveRecord::Base
     SQL
   end
 
+  private
+
+  def set_defaults
+    self.priority ||= 3
+  end
 end

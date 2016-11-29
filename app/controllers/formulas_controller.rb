@@ -1,9 +1,13 @@
 class FormulasController < ApplicationController
   before_action :set_formula, only: [:show, :edit, :update, :destroy]
 
+  before_action only: [:index] do
+    get_query('query_formulas')
+  end
+
   # GET /formulas
   def index
-    @search = Formula.ransack(params[:q])
+    @search = Formula.ransack(@query)
     @search.build_sort({name: 'priority', dir: 'asc'}) if @search.sorts.blank?
     @search.state_eq = 'open' unless params_has_state_condition?
 
@@ -18,6 +22,8 @@ class FormulasController < ApplicationController
   # GET /formulas/new
   def new
     @state_select_options = Formula.state_options
+    @details_title = 'New Formula'
+    @default_collapse_state = 'in'
     @formula = Formula.new
     @formula.formulas_assets.build
     build_progress_steps(@formula)
@@ -26,6 +32,7 @@ class FormulasController < ApplicationController
   # GET /formulas/1/edit
   def edit
     @state_select_options = Formula.state_options
+    @details_title = @formula.name
     @formula.formulas_assets.build
     build_progress_steps(@formula)
   end
