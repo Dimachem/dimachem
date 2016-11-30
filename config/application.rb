@@ -23,5 +23,8 @@ module Dimachem
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Exception Handling
+    config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
   end
 end

@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   rescue_from Net::LDAP::Error, :with => :ldap_error_handler
+  before_action :skip_authorization
   before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
