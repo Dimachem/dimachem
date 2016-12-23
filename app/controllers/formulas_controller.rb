@@ -34,7 +34,7 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1/edit
   def edit
-    authorize Formula
+    authorize @formula
     @state_select_options = Formula.state_options
     @details_title = @formula.name
     @formula.formulas_assets.build

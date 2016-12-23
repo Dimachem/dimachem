@@ -1,4 +1,4 @@
-class FormulaPolicy < ApplicationPolicy
+class UserPolicy < ApplicationPolicy
 
   def permitted_attributes
     # if user.admin? || user.owner_of?(post)

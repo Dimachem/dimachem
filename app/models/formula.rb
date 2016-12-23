@@ -10,8 +10,10 @@ class Formula < ActiveRecord::Base
 
   validates :code, presence: true, uniqueness: true
   validates :priority, inclusion: { in: (1..3) }
+  validate :comments_check_character_encoding
 
   scope :state, -> (state) { where state: state }
+  scope :non_ascii_comments, -> { where("comments <> CONVERT(comments USING ASCII)") }
 
   state_machine :state, :initial => :open do
 
@@ -50,9 +52,14 @@ class Formula < ActiveRecord::Base
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       INSERT INTO #{destination_db}.new_product_progress_data
-        (`Product Code`, `Product Name`, `Priority`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
+        (`Product Code`, `Product Name`, `Priority`, `Status`, `Sr_Mgmt_Rev_BY`)
       VALUES
-        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.comments, NEW.reviewed_by);
+        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.reviewed_by);
+
+      INSERT INTO #{destination_db}.new_product_progress_data_comments
+        (`Product Code`, `Comments`)
+      VALUES
+        (NEW.code, NEW.comments);
     END thisTrigger
     SQL
   end
@@ -71,8 +78,11 @@ class Formula < ActiveRecord::Base
         SET `Product Name` = NEW.name,
             `Priority` = NEW.priority,
             `Status` = NEW.state,
-            `Comments` = NEW.comments,
             `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
+      WHERE `Product Code` = OLD.code;
+
+      UPDATE #{destination_db}.new_product_progress_data_comments
+        SET `Comments` = NEW.comments
       WHERE `Product Code` = OLD.code;
     END thisTrigger
     SQL
@@ -88,6 +98,9 @@ class Formula < ActiveRecord::Base
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
+      DELETE FROM #{destination_db}.new_product_progress_data_comments
+      WHERE `Product Code` = OLD.code;
+
       DELETE FROM #{destination_db}.new_product_progress_data
       WHERE `Product Code` = OLD.code;
     END thisTrigger
@@ -95,6 +108,13 @@ class Formula < ActiveRecord::Base
   end
 
   private
+
+  def comments_check_character_encoding
+    # NOTE: this is required to support MySql ODBC 3.51 for MEMO field
+    comments.try(:encode!, 'us-ascii')
+  rescue Encoding::UndefinedConversionError => e
+    errors.add(:comments, "has invalid character encoding: #{e.message}")
+  end
 
   def set_defaults
     self.priority ||= 3

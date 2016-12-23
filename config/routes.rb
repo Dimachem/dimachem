@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:index, :show, :edit]
   resources :formulas, except: :destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
