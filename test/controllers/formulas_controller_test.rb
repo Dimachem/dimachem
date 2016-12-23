@@ -5,6 +5,7 @@ class FormulasControllerTest < ActionController::TestCase
 
   setup do
     @formula = formulas(:one)
+    users(:one).add_role :super_user
     sign_in users(:one)
   end
 

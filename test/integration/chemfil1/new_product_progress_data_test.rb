@@ -45,7 +45,7 @@ module Integration
       end
 
       test 'insert new product progress data' do
-        ActiveRecord::Base.connection.execute(insert_sql)
+        insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
         formula = Formula.find_by_code(@data[:insert][:code])
 
         assert_equal(@data[:insert][:code], formula.code)
@@ -54,24 +54,26 @@ module Integration
       end
 
       test 'update new product progress data' do
-        ActiveRecord::Base.connection.execute(insert_sql)
+        insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
         ActiveRecord::Base.connection.reset!
         org_formula = Formula.find_by_code(@data[:insert][:code])
         sleep(1)
 
         sql = <<-SQL
           UPDATE chemfil1_test.new_product_progress_data
-            SET `Product Code` = "#{@data[:update][:code]}",
-                `Product Name` = "#{@data[:update][:name]}",
-                `Status` = "#{@data[:update][:state]}",
-                `Comments` = "#{@data[:update][:comments]}"
+            SET `Product Name` = "#{@data[:update][:name]}",
+                `Status` = "#{@data[:update][:state]}"
+          WHERE `Product Code` = "#{@data[:insert][:code]}";
+
+          UPDATE chemfil1_test.new_product_progress_data_comments
+            SET `Comments` = "#{@data[:update][:comments]}"
           WHERE `Product Code` = "#{@data[:insert][:code]}"
         SQL
 
-        ActiveRecord::Base.connection.execute(sql)
-        formula = Formula.find_by_code(@data[:update][:code])
+        sql.split(';').each {|s| ActiveRecord::Base.connection.execute(s)}
+        formula = Formula.find_by_code(@data[:insert][:code])
 
-        assert_equal(@data[:update][:code], formula.code)
+        assert_equal(@data[:insert][:code], formula.code)
         assert_equal(@data[:update][:name], formula.name)
         assert_equal(@data[:update][:state], formula.state)
         assert_equal(@data[:update][:comments], formula.comments)
@@ -80,7 +82,7 @@ module Integration
       end
 
       test 'update one new product progress steps' do
-        ActiveRecord::Base.connection.execute(insert_sql)
+        insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
         ActiveRecord::Base.connection.reset!
 
         sql = update_sql(['tds_msds_'])
@@ -96,7 +98,7 @@ module Integration
 
       test 'update many new product progress steps' do
         steps = ['tds_msds_', 'formula_', 'test_proc_rec_', 'prod_spec_', 'form_to_purch_mang_']
-        ActiveRecord::Base.connection.execute(insert_sql)
+        insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
         ActiveRecord::Base.connection.reset!
 
         sql = update_sql(steps)
@@ -114,7 +116,7 @@ module Integration
       end
 
       test 'delete new product progress data' do
-        ActiveRecord::Base.connection.execute(insert_sql)
+        insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
         ActiveRecord::Base.connection.reset!
 
         sql = <<-SQL
@@ -154,21 +156,30 @@ module Integration
       end
 
       def insert_sql
-        sql = <<-SQL
+        sql1 = <<-SQL
           INSERT INTO chemfil1_test.new_product_progress_data
-            (`Product Code`, `Product Name`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`,
+            (`Product Code`, `Product Name`, `Status`, `Sr_Mgmt_Rev_BY`,
             `TDS MSDS YN`, `TDS MSDS Date`, `TDS MSDS Com`)
           VALUES (
             "#{@data[:insert][:code]}",
             "#{@data[:insert][:name]}",
             "#{@data[:insert][:state]}",
-            "#{@data[:insert][:comments]}",
             "#{@data[:insert][:reviewed_by]}",
             "#{@data[:insert][:tds_msds_yn]}",
             "#{@data[:insert][:tds_msds_date]}",
             "#{@data[:insert][:tds_msds_com]}"
           )
         SQL
+        sql2 = <<-SQL
+          INSERT INTO chemfil1_test.new_product_progress_data_comments
+            (`Product Code`, `Comments`)
+          VALUES (
+            "#{@data[:insert][:code]}",
+            "#{@data[:insert][:comments]}"
+          );
+        SQL
+
+        [sql1, sql2]
       end
 
     end

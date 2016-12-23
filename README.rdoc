@@ -22,10 +22,10 @@ rake db:create RAILS_ENV=test_sync
 run rake db:generate_trigger_migration whenever a trigger changes
 
 * Database initialization
-rake db:migrate
+rake db:migrate VERSION=
 rake db:seed
 update arg_target_password and CHEMFIL1_DEVELOPMENT for environment
-run db\chemfil1\201605211310_New_Product_Progress_Data_migration_data.bat
+run db\chemfil1\20161130155119_New_Product_Progress_Data_migration_data.bat
 
 * How to run the test suite
 rake db:migrate RAILS_ENV=test
@@ -38,6 +38,10 @@ rake test RAILS_ENV=test
 
 * Deployment instructions
 bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile
+
+* Deployment Instructions
+mysqldump -u root -p --databases dimachem_development --result-file=dimachem_development_201651222.sql
+mysqldump -u root -p --databases chemfil1_development --result-file=chemfil1_development_201651222.sql
 
 * ...
 

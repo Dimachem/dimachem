@@ -47,7 +47,7 @@ module Integration
     end
 
     test 'update formula progress step' do
-      ActiveRecord::Base.connection.execute(insert_sql)
+      insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
       ActiveRecord::Base.connection.reset!
 
       formula = Formula.find_by_code!(@data[:insert_sync][:code])
@@ -63,7 +63,7 @@ module Integration
     end
 
     test 'delete formula progress step' do
-      ActiveRecord::Base.connection.execute(insert_sql)
+      insert_sql.each {|sql| ActiveRecord::Base.connection.execute(sql)}
       ActiveRecord::Base.connection.reset!
 
       formula = Formula.find_by_code!(@data[:insert_sync][:code])
@@ -89,22 +89,31 @@ module Integration
     end
 
     def insert_sql
-      sql = <<-SQL
+      sql1 = <<-SQL
         INSERT INTO chemfil1_test.new_product_progress_data
-          (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`,
+          (`Product Code`, `Product Name`, `Status`, `Sales to Date`, `Sr_Mgmt_Rev_BY`,
           `Cust_Req_YN`, `Cust_Req_Date`, `Cust_Req_Com`)
         VALUES (
           "#{@data[:insert_sync][:code]}",
           "#{@data[:insert_sync][:name]}",
           "#{@data[:insert_sync][:state]}",
-          "#{@data[:insert_sync][:comments]}",
           "#{@data[:insert_sync][:sales_to_date]}",
           "#{@data[:insert_sync][:reviewed_by]}",
           "#{@data[:insert_sync][:cust_req_yn]}",
           "#{@data[:insert_sync][:cust_req_date]}",
           "#{@data[:insert_sync][:cust_req_com]}"
-        )
+        );
       SQL
+      sql2 = <<-SQL
+        INSERT INTO chemfil1_test.new_product_progress_data_comments
+          (`Product Code`, `Comments`)
+        VALUES (
+          "#{@data[:insert_sync][:code]}",
+          "#{@data[:insert_sync][:comments]}"
+        );
+      SQL
+
+      [sql1, sql2]
     end
 
   end

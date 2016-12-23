@@ -26,38 +26,40 @@ module Integration
 
     test 'insert formula' do
       formula = Formula.create!(@data[:insert])
-      r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
+      rf = ActiveRecord::Base.connection.raw_connection.query(select_sql[0], as: :hash)
+      rc = ActiveRecord::Base.connection.raw_connection.query(select_sql[1], as: :hash)
 
-      assert_equal 1, r.count
-      assert_equal @data[:insert][:code], r.first['Product Code']
-      assert_equal @data[:insert][:name], r.first['Product Name']
-      assert_equal @data[:insert][:state], r.first['Status']
-      assert_equal @data[:insert][:comments], r.first['Comments']
-      assert_equal @data[:insert][:reviewed_by], r.first['Sr_Mgmt_Rev_BY']
+      assert_equal 1, rf.count
+      assert_equal @data[:insert][:code], rf.first['Product Code']
+      assert_equal @data[:insert][:name], rf.first['Product Name']
+      assert_equal @data[:insert][:state], rf.first['Status']
+      assert_equal @data[:insert][:comments], rc.first['Comments']
+      assert_equal @data[:insert][:reviewed_by], rf.first['Sr_Mgmt_Rev_BY']
     end
 
     test 'update formula' do
-      ActiveRecord::Base.connection.execute(insert_sql)
+      insert_sql.split(';').each {|sql| ActiveRecord::Base.connection.execute(sql)}
       ActiveRecord::Base.connection.reset!
 
       formula = Formula.find_by_code!(@data[:insert][:code])
       formula.update_attributes!(@data[:update])
-      r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
+      rf = ActiveRecord::Base.connection.raw_connection.query(select_sql[0], as: :hash)
+      rc = ActiveRecord::Base.connection.raw_connection.query(select_sql[1], as: :hash)
 
-      assert_equal @data[:insert][:code], r.first['Product Code']
-      assert_equal @data[:update][:name], r.first['Product Name']
-      assert_equal @data[:update][:state], r.first['Status']
-      assert_equal @data[:update][:comments], r.first['Comments']
-      assert_equal @data[:update][:reviewed_by], r.first['Sr_Mgmt_Rev_BY']
+      assert_equal @data[:insert][:code], rf.first['Product Code']
+      assert_equal @data[:update][:name], rf.first['Product Name']
+      assert_equal @data[:update][:state], rf.first['Status']
+      assert_equal @data[:update][:comments], rc.first['Comments']
+      assert_equal @data[:update][:reviewed_by], rf.first['Sr_Mgmt_Rev_BY']
     end
 
     test 'delete formula' do
-      ActiveRecord::Base.connection.execute(insert_sql)
+      insert_sql.split(';').each {|sql| ActiveRecord::Base.connection.execute(sql)}
       ActiveRecord::Base.connection.reset!
 
       formula = Formula.find_by_code!(@data[:insert][:code])
       formula.destroy
-      r = ActiveRecord::Base.connection.raw_connection.query(select_sql, as: :hash)
+      r = ActiveRecord::Base.connection.raw_connection.query(select_sql[0], as: :hash)
 
       assert_equal 0, r.count
     end
@@ -69,19 +71,30 @@ module Integration
         SELECT *
         FROM chemfil1_test.new_product_progress_data
         WHERE `Product Code` = "#{@data[:insert][:code]}";
+
+        SELECT *
+        FROM chemfil1_test.new_product_progress_data_comments
+        WHERE `Product Code` = "#{@data[:insert][:code]}"
       SQL
+      .split(';')
     end
 
     def insert_sql
       sql = <<-SQL
         INSERT INTO chemfil1_test.new_product_progress_data
-          (`Product Code`, `Product Name`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
+          (`Product Code`, `Product Name`, `Status`, `Sr_Mgmt_Rev_BY`)
         VALUES (
           "#{@data[:insert][:code]}",
           "#{@data[:insert][:name]}",
           "#{@data[:insert][:state]}",
-          "#{@data[:insert][:comments]}",
           "#{@data[:insert][:reviewed_by]}"
+        );
+
+        INSERT INTO chemfil1_test.new_product_progress_data_comments
+          (`Product Code`, `Comments`)
+        VALUES (
+          "#{@data[:insert][:code]}",
+          "#{@data[:insert][:comments]}"
         )
       SQL
     end

@@ -2,6 +2,7 @@ class FormulasController < ApplicationController
   before_action :set_formula, only: [:show, :edit, :update, :destroy]
 
   before_action only: [:index] do
+    skip_policy_scope
     get_query('query_formulas')
   end
 
@@ -16,11 +17,13 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1
   def show
+    authorize @formula
     build_progress_steps(@formula)
   end
 
   # GET /formulas/new
   def new
+    authorize Formula
     @state_select_options = Formula.state_options
     @details_title = 'New Formula'
     @default_collapse_state = 'in'
@@ -31,6 +34,7 @@ class FormulasController < ApplicationController
 
   # GET /formulas/1/edit
   def edit
+    authorize @formula
     @state_select_options = Formula.state_options
     @details_title = @formula.name
     @formula.formulas_assets.build
@@ -40,6 +44,7 @@ class FormulasController < ApplicationController
   # POST /formulas
   def create
     @formula = Formula.new(formula_params)
+    authorize @formula
 
     if @formula.save
       redirect_to @formula, notice: 'Formula was successfully created.'
@@ -52,6 +57,7 @@ class FormulasController < ApplicationController
 
   # PATCH/PUT /formulas/1
   def update
+    authorize @formula
     if @formula.update(formula_params)
       redirect_to @formula, notice: 'Formula was successfully updated.'
     else
@@ -92,9 +98,6 @@ class FormulasController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def formula_params
-    params.require(:formula)
-      .permit(:code, :name, :state, :priority, :comments, :sales_to_date, :reviewed_by,
-        formulas_assets_attributes: [:id, :asset],
-        formulas_progress_steps_attributes: [:id, :progress_step_id, :completed, :completed_on, :comments])
+    params.require(:formula).permit(policy(Formula).permitted_attributes)
   end
 end

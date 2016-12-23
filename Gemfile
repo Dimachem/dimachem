@@ -33,8 +33,20 @@ gem 'turbolinks'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# web server
+gem 'puma'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# use net-ldap to interface with Novell eDirectory for authentication
+gem 'devise'
+gem 'devise_ldap_authenticatable'
+
+# used for authorization
+gem 'pundit'
+# used for roles
+gem 'rolify'
 
 # use hairtrigger to implement this side of the ETL with CHEMFIL1
 # it can be removed once the ETL is disbanded
@@ -45,13 +57,6 @@ gem 'ransack'
 gem 'paperclip', '~> 4.3'
 # gem 'carrierwave'
 gem 'state_machine'
-
-# use net-ldap to interface with Novell eDirectory for authentication
-gem 'devise'
-gem 'devise_ldap_authenticatable'
-
-# web server
-gem 'puma'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
