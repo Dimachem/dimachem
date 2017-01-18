@@ -37,7 +37,7 @@
 <p>
   <strong>Reference Files:</strong>
   <% @formula.formulas_assets.each do |formulas_asset| %>
-    <%= link_to formulas_asset.asset.original_filename, formulas_asset.asset.url %> |
+    <%= link_to formulas_asset.asset.original_filename, formulas_asset.asset.url, target: '_blank' %> |
   <% end %>
 </p>
 
