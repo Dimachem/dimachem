@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
+//= require turbolinks5-compatibility
 //= require bootstrap-sprockets
 
 //= require search
