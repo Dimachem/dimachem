@@ -21,19 +21,19 @@ class FormulaPolicy < ApplicationPolicy
 
   def show?
     # user.admin? or not record.published?
-    user.has_role? :super_user ||
-    user.has_role? :formula_management ||
-    user.has_role? :laboratory
+    user.has_role?(:super_user) ||
+    user.has_role?(:formula_management) ||
+    user.has_role?(:laboratory)
   end
 
   def create?
-    user.has_role? :super_user ||
-    user.has_role? :formula_management
+    user.has_role?(:super_user) ||
+    user.has_role?(:formula_management)
   end
 
   def update?
-    user.has_role? :super_user ||
-    user.has_role? :formula_management
+    user.has_role?(:super_user) ||
+    user.has_role?(:formula_management)
   end
 
 end

@@ -513,7 +513,7 @@ ActiveRecord::Schema.define(version: 20170119015243) do
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      INSERT INTO chemfil1_test.new_product_progress_data
+      INSERT INTO chemfil1_development.new_product_progress_data
         (`Product Code`, `Product Name`, `Priority`, `Status`, `Sr_Mgmt_Rev_BY`, `Start Date`, `Requested By`, `Customer`)
       VALUES
         (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.reviewed_by, NEW.start_date, NEW.requested_by, NEW.customer);

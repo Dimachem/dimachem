@@ -64,7 +64,7 @@
           <div class="controls">
             <%= f.fields_for :formulas_assets do |nested_f|%>
               <% if nested_f.object.asset.present? %>
-                <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url %> |
+                <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url, target: '_blank' %> |
               <% else %>
                 <!-- Use HTML5 multiple attribute to enable multiple selection
                      and pass back to controller all files as an array.

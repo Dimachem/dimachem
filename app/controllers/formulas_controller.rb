@@ -84,6 +84,7 @@ class FormulasController < ApplicationController
 
     assets.each_with_index do |asset, index|
       added_asset = {(base + index).to_s => {"asset" => asset}}
+      params[:formula][:formulas_assets_attributes] ||= {}
       params[:formula][:formulas_assets_attributes].merge!(added_asset)
     end
   end
