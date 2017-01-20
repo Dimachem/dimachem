@@ -52,9 +52,9 @@ class Formula < ActiveRecord::Base
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
       INSERT INTO #{destination_db}.new_product_progress_data
-        (`Product Code`, `Product Name`, `Priority`, `Status`, `Sr_Mgmt_Rev_BY`)
+        (`Product Code`, `Product Name`, `Priority`, `Status`, `Sr_Mgmt_Rev_BY`, `Start Date`, `Requested By`, `Customer`)
       VALUES
-        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.reviewed_by);
+        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.reviewed_by, NEW.start_date, NEW.requested_by, NEW.customer);
 
       INSERT INTO #{destination_db}.new_product_progress_data_comments
         (`Product Code`, `Comments`)
@@ -78,7 +78,10 @@ class Formula < ActiveRecord::Base
         SET `Product Name` = NEW.name,
             `Priority` = NEW.priority,
             `Status` = NEW.state,
-            `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
+            `Sr_Mgmt_Rev_BY` = NEW.reviewed_by,
+            `Start Date` = NEW.start_date,
+            `Requested By` = NEW.requested_by,
+            `Customer` = NEW.customer
       WHERE `Product Code` = OLD.code;
 
       UPDATE #{destination_db}.new_product_progress_data_comments

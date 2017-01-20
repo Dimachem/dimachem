@@ -66,11 +66,39 @@
               <% if nested_f.object.asset.present? %>
                 <%= link_to nested_f.object.asset.original_filename, nested_f.object.asset.url %> |
               <% else %>
-                <%= nested_f.file_field :asset %>
+                <!-- Use HTML5 multiple attribute to enable multiple selection
+                     and pass back to controller all files as an array.
+                     file_field_tag, since images is not a gallery attribute
+                  -->
+                <%= file_field_tag "formula[assets][]", id: "formula_assets", type: :file, multiple: true %>
+                <!--%= nested_f.file_field :assets[], multiple: true %-->
               <% end %>
             <% end %>
           </div>
         </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.label :start_date, class: "control-label" %>
+          <div class="controls">
+            <%= f.date_select :start_date, use_month_numbers: true, prompt: true, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <%= f.label :requested_by, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :requested_by, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <%= f.label :customer, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :customer, class: "form-control" %>
+          </div>
         </div>
       </div>
 

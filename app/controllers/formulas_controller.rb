@@ -45,6 +45,7 @@ class FormulasController < ApplicationController
   def create
     @formula = Formula.new(formula_params)
     authorize @formula
+    build_multiple_assets
 
     if @formula.save
       redirect_to @formula, notice: 'Formula was successfully created.'
@@ -58,6 +59,8 @@ class FormulasController < ApplicationController
   # PATCH/PUT /formulas/1
   def update
     authorize @formula
+    build_multiple_assets
+
     if @formula.update(formula_params)
       redirect_to @formula, notice: 'Formula was successfully updated.'
     else
@@ -74,6 +77,16 @@ class FormulasController < ApplicationController
   # end
 
   private
+
+  def build_multiple_assets
+    base = @formula.formulas_assets.count
+    assets = params[:formula].delete(:assets) || []
+
+    assets.each_with_index do |asset, index|
+      added_asset = {(base + index).to_s => {"asset" => asset}}
+      params[:formula][:formulas_assets_attributes].merge!(added_asset)
+    end
+  end
 
   def build_progress_steps(formula)
     build_steps = ProgressStep.active - formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)

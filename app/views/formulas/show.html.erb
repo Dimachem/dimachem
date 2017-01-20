@@ -35,6 +35,21 @@
 </p>
 
 <p>
+  <strong>Start Date:</strong>
+  <%= @formula.start_date %>
+</p>
+
+<p>
+  <strong>Requested by:</strong>
+  <%= @formula.requested_by %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @formula.customer %>
+</p>
+
+<p>
   <strong>Reference Files:</strong>
   <% @formula.formulas_assets.each do |formulas_asset| %>
     <%= link_to formulas_asset.asset.original_filename, formulas_asset.asset.url, target: '_blank' %> |

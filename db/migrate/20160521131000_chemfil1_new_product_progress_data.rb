@@ -87,7 +87,7 @@ SQL
     Chemfil1Migration.execute(sql)
 
     # sets the connection for create_trigger
-    @connection = Chemfil1Migration.connection
+    @connection = Chemfil1Migration.establish_connection.connection
 
     create_trigger("New_Product_Progress_Data_AFTER_INSERT", :generated => false, :compatibility => 1).
         on("New_Product_Progress_Data").
