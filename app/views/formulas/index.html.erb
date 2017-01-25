@@ -1,0 +1,53 @@
+<h3>
+  New Formula Progress
+  <%= link_to 'New Formula', new_formula_path, class: 'btn btn-primary' %>
+</h3>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a data-toggle="collapse" href="#search_and_sort">Search and Sort</a>
+  </div>
+  <div id='search_and_sort' class="panel-body collapse">
+    <%= search_form_for @search, class: "form-inline" do |f| %>
+      <%= f.condition_fields do |c| %>
+        <%= render 'search/condition_fields', f: c %>
+      <% end %>
+
+      <%= link_to_add_search_field f, :condition %>
+
+      <%= f.sort_fields do |s| %>
+        <%= render 'search/sort_fields', f: s %>
+      <% end %>
+
+      <%= link_to_add_search_field f, :sort %>
+      <br>
+      <%= f.submit nil, class: 'btn btn-default' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th>Formula Name</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @formulas.each do |formula| %>
+      <tr>
+        <td><%= link_to formula.name, formula %></td>
+        <td><%= formula.priority %></td>
+        <td><%= formula.state %></td>
+        <td><%#= link_to 'Show', formula, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_formula_path(formula), class: 'btn btn-default btn-xs' %></td>
+        <td><%#= link_to 'Destroy', formula, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

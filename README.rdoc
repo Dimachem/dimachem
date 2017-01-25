@@ -8,22 +8,55 @@ Things you may want to cover:
 * Ruby version
 
 * System dependencies
+for paperclip: https://github.com/thoughtbot/paperclip#file
+linked directories
+  > mklink /d "uploads" "\\SERVER\uploads"
 
 * Configuration
 
 * Database creation
+rake db:create
+rake db:create RAILS_ENV=development_sync
+rake db:create RAILS_ENV=test_sync
+
 run rake db:generate_trigger_migration whenever a trigger changes
 
 * Database initialization
+rake db:migrate VERSION=
+rake db:seed
+update arg_target_password and CHEMFIL1_DEVELOPMENT for environment
+run db\chemfil1\20161130155119_New_Product_Progress_Data_migration_data.bat
 
 * How to run the test suite
+rake db:migrate RAILS_ENV=test
+rake db:seed RAILS_ENV=test
+rake test RAILS_ENV=test
+ * to run single test: TESTOPTS="--name=..."
+ * to run single file: TEST=test/a_test.rb
 
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile
+
+* Deployment Instructions
+mysqldump -u root -p --databases dimachem_development --result-file=dimachem_development_201651222.sql
+mysqldump -u root -p --databases chemfil1_development --result-file=chemfil1_development_201651222.sql
 
 * ...
 
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+TODO:
+- app authentication (login)
+  - todo app role and author
+
+- configure fixtures to truncate db tables to reset auto increment
+- create development ldap env
+
+- http://stackoverflow.com/questions/12520456/execjsruntimeerror-on-windows-trying-to-follow-rubytutorial
+- https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
+- http://www.userbooster.com/en/download/openldap-for-windows.aspx
+- http://railscasts.com/episodes/196-nested-model-form-part-1

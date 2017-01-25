@@ -7,4 +7,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  protected
+
+  def try_parse_datetime(s)
+    Time.zone.parse(s)
+  rescue TypeError
+    nil
+  end
 end

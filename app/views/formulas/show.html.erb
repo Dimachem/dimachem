@@ -1,0 +1,90 @@
+<h3>
+  Formula
+  <%= link_to 'Edit', edit_formula_path(@formula), class: 'btn btn-default' %>
+  <%= link_to 'Back', formulas_path, class: 'btn btn-default' %>
+</h3>
+
+<p>
+  <strong>Name:</strong>
+  <%= @formula.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @formula.code %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @formula.state %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @formula.priority %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @formula.comments %>
+</p>
+
+<p>
+  <strong>Reviewed by:</strong>
+  <%= @formula.reviewed_by %>
+</p>
+
+<p>
+  <strong>Start Date:</strong>
+  <%= @formula.start_date %>
+</p>
+
+<p>
+  <strong>Requested by:</strong>
+  <%= @formula.requested_by %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @formula.customer %>
+</p>
+
+<p>
+  <strong>Reference Files:</strong>
+  <% @formula.formulas_assets.each do |formulas_asset| %>
+    <%= link_to formulas_asset.asset.original_filename, formulas_asset.asset.url, target: '_blank' %> |
+  <% end %>
+</p>
+
+<table class="table table-striped table-condensed table-bordered table-responsive">
+  <thead>
+    <tr>
+      <th>
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">Progress Step</div>
+        <div class="col-sm-2">Completed</div>
+        <div class="col-sm-3">Completed On</div>
+        <div class="col-sm-12">Comments</div>
+      </div>
+      </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @formula.formulas_progress_steps.each do |formulas_progress_step| %>
+    <tr>
+      <td>
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6"><%= formulas_progress_step.progress_step.description %></div>
+        <div class="col-sm-2"><%= check_box_tag :completed, '1', formulas_progress_step.completed, disabled: true%></div>
+        <div class="col-sm-3"><%= formulas_progress_step.completed_on.try(:to_date) %></div>
+        <div class="col-sm-12"><%= formulas_progress_step.comments %></div>
+      </div>
+      </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

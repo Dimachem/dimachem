@@ -3,23 +3,27 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-# Use postgresql as the database for Active Record
+# Use mysql2 as the database for Active Record
 gem 'mysql2'
 # # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-# # Use SCSS for stylesheets
-# gem 'sass-rails', '~> 5.0'
-# # Use Uglifier as compressor for JavaScript assets
-# gem 'uglifier', '>= 1.3.0'
-# # Use CoffeeScript for .coffee assets and views
-# gem 'coffee-rails', '~> 4.1.0'
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '>= 3.2'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
 # # See https://github.com/rails/execjs#readme for more supported runtimes
 # # gem 'therubyracer', platforms: :ruby
 
-# # Use jquery as the JavaScript library
-# gem 'jquery-rails'
-# # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
+# gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+# Required to allow turbolinks to correctly bind javascript events to DOM
+gem 'jquery-turbolinks'
 # # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
 # # bundle exec rake doc:rails generates the API under doc/api.
@@ -31,8 +35,30 @@ gem 'mysql2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# web server
+gem 'puma'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# use net-ldap to interface with Novell eDirectory for authentication
+gem 'devise'
+gem 'devise_ldap_authenticatable'
+
+# used for authorization
+gem 'pundit'
+# used for roles
+gem 'rolify'
+
+# use hairtrigger to implement this side of the ETL with CHEMFIL1
+# it can be removed once the ETL is disbanded
+gem 'hairtrigger'
+gem 'acts_as_list'
+gem 'ransack'
+# gem 'will_paginate'
+gem 'paperclip', '~> 4.3'
+# gem 'carrierwave'
+gem 'state_machines-activerecord'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,11 +70,10 @@ group :development do
   # gem 'web-console', '~> 2.0'
 end
 
-# use hairtrigger to implement this side of the ETL with CHEMFIL1
-# it can be removed once the ETL is disbanded
-gem 'hairtrigger'
-
-gem 'acts_as_list'
+group :production do
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

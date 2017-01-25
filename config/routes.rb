@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: 'users/sessions' }
+
+  devise_scope :user do
+    root to: 'formulas#index' # home page
+
+    authenticated :user do
+      root 'formulas#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'users/sessions#new', as: :unauthenticated_root
+    end
+  end
+
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :formulas, except: :destroy
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,48 @@
+## Authorizations
+# Uncomment out the merging for each enviornment that you'd like to include.
+# You can also just copy and paste the tree (do not include the "authorizations") to each
+# enviornment if you need something different per enviornment.
+authorizations: &AUTHORIZATIONS
+  group_base: ou=groups,dc=test,dc=com
+  ## Requires config.ldap_check_group_membership in devise.rb be true
+  # Can have multiple values, must match all to be authorized
+  required_groups:
+    - cn=admins,ou=groups,dc=test,dc=com
+    - cn=users,ou=groups,dc=test,dc=com
+  ## Requires config.ldap_check_attributes in devise.rb to be true
+  ## Can have multiple attributes and values, must match all to be authorized
+  require_attribute:
+    objectClass: inetOrgPerson
+    authorizationRole: postsAdmin
+
+## Enviornments
+
+development:
+  host: 10.1.1.205
+  port: 389
+  attribute: cn
+  base: ou=Systems,o=Windsor
+  admin_user: cn=LDAP_UserRuby,o=Windsor
+  admin_password: LDAPUserRuby
+  ssl: false
+  # <<: *AUTHORIZATIONS
+
+test:
+  host: localhost
+  port: 3389
+  attribute: cn
+  base: ou=people,dc=test,dc=com
+  admin_user: cn=admin,dc=test,dc=com
+  admin_password: admin_password
+  ssl: false
+  # <<: *AUTHORIZATIONS
+
+production:
+  host: 10.1.1.205
+  port: 636
+  attribute: cn
+  base: o=Windsor
+  admin_user: cn=LDAP_UserRuby,o=Windsor
+  admin_password: LDAPUserRuby
+  ssl: true
+  # <<: *AUTHORIZATIONS

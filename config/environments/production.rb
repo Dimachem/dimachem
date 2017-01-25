@@ -22,6 +22,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
+  # https://github.com/thoughtbot/paperclip/issues/667
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
@@ -76,4 +77,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # These will get merged into Paperclip::Attachment.default_options
+  config.paperclip_defaults = {
+    url: "/dimachem/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename",
+    path: ":rails_root/public/uploads/:rails_env/:class/:attachment/:id_partition/:style/:filename"
+  }
 end

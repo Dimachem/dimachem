@@ -7,6 +7,8 @@ class CreateTriggersFormulas < ActiveRecord::Migration
     create_trigger("formulas_after_insert_row_tr", :generated => true, :compatibility => 1).
         on("formulas").
         after(:insert) do
+      destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
       <<-SQL_ACTIONS
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -14,10 +16,10 @@ class CreateTriggersFormulas < ActiveRecord::Migration
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      INSERT INTO chemfil1.new_product_progress_data
-        (`Product Code`, `Product Name`, `Status`, `Comments`, `Sales to Date`, `Sr_Mgmt_Rev_BY`)
+      INSERT INTO #{destination_db}.new_product_progress_data
+        (`Product Code`, `Product Name`, `Priority`, `Status`, `Comments`, `Sr_Mgmt_Rev_BY`)
       VALUES
-        (NEW.code, NEW.name, NEW.state, NEW.comments, NEW.sales_to_date, NEW.reviewed_by);
+        (NEW.code, NEW.name, NEW.priority, NEW.state, NEW.comments, NEW.reviewed_by);
     END thisTrigger;
       SQL_ACTIONS
     end
@@ -25,6 +27,8 @@ class CreateTriggersFormulas < ActiveRecord::Migration
     create_trigger("formulas_after_update_row_tr", :generated => true, :compatibility => 1).
         on("formulas").
         after(:update) do
+      destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
       <<-SQL_ACTIONS
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -32,11 +36,11 @@ class CreateTriggersFormulas < ActiveRecord::Migration
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      UPDATE chemfil1.new_product_progress_data
+      UPDATE #{destination_db}.new_product_progress_data
         SET `Product Name` = NEW.name,
+            `Priority` = New.priority,
             `Status` = NEW.state,
             `Comments` = NEW.comments,
-            `Sales to Date` = NEW.sales_to_date,
             `Sr_Mgmt_Rev_BY` = NEW.reviewed_by
       WHERE `Product Code` = OLD.code;
     END thisTrigger;
@@ -46,6 +50,8 @@ class CreateTriggersFormulas < ActiveRecord::Migration
     create_trigger("formulas_after_delete_row_tr", :generated => true, :compatibility => 1).
         on("formulas").
         after(:delete) do
+      destination_db = Rails.application.config.database_configuration()["#{Rails.env}_sync"]['database']
+
       <<-SQL_ACTIONS
     thisTrigger: BEGIN
       IF (@TRIGGER_CHECKS_CHEMFIL1 = FALSE) THEN
@@ -53,7 +59,7 @@ class CreateTriggersFormulas < ActiveRecord::Migration
       END IF;
 
       SET @TRIGGER_CHECKS_DIMACHEM = FALSE;
-      DELETE FROM chemfil1.new_product_progress_data
+      DELETE FROM #{destination_db}.new_product_progress_data
       WHERE `Product Code` = OLD.code;
     END thisTrigger;
       SQL_ACTIONS

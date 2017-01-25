@@ -10,6 +10,14 @@ development:
   username: root
   password: sa123
 
+development_sync:
+  <<: *default
+  host: localhost
+  database: chemfil1_development
+  username: root
+  password: sa123
+
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -20,8 +28,21 @@ test:
   username: root
   password: sa123
 
+test_sync:
+  <<: *default
+  host: localhost
+  database: chemfil1_test
+  username: root
+  password: sa123
+
 production:
   <<: *default
   database: dimachem
-  username:
-  password:
+  username: root
+  password: chem$QL2016
+
+production_sync:
+  <<: *default
+  database: chemfil1
+  username: root
+  password: chem$QL2016
