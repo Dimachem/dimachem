@@ -10,13 +10,19 @@ module Integration
           name: 'inserted name',
           state: 'open',
           comments: 'inserted comments',
-          reviewed_by: 'inserted reviewer'
+          reviewed_by: 'inserted reviewer',
+          start_date: '2015-07-12 16:00:09',
+          requested_by: 'inserted requester',
+          customer: 'inserted customer'
         },
         update: {
           name: 'updated name',
           state: 'completed',
           comments: 'updated comments',
-          reviewed_by: 'updated reviewer'
+          reviewed_by: 'updated reviewer',
+          start_date: '2016-07-12 16:00:09',
+          requested_by: 'updated requester',
+          customer: 'updated customer'
         }
       }
 
@@ -35,6 +41,9 @@ module Integration
       assert_equal @data[:insert][:state], rf.first['Status']
       assert_equal @data[:insert][:comments], rc.first['Comments']
       assert_equal @data[:insert][:reviewed_by], rf.first['Sr_Mgmt_Rev_BY']
+      assert_equal try_parse_datetime(@data[:insert][:start_date]), rf.first['Start Date']
+      assert_equal @data[:insert][:requested_by], rf.first['Requested By']
+      assert_equal @data[:insert][:customer], rf.first['Customer']
     end
 
     test 'update formula' do
@@ -51,6 +60,9 @@ module Integration
       assert_equal @data[:update][:state], rf.first['Status']
       assert_equal @data[:update][:comments], rc.first['Comments']
       assert_equal @data[:update][:reviewed_by], rf.first['Sr_Mgmt_Rev_BY']
+      assert_equal try_parse_datetime(@data[:update][:start_date]), rf.first['Start Date']
+      assert_equal @data[:update][:requested_by], rf.first['Requested By']
+      assert_equal @data[:update][:customer], rf.first['Customer']
     end
 
     test 'delete formula' do
@@ -82,12 +94,16 @@ module Integration
     def insert_sql
       sql = <<-SQL
         INSERT INTO chemfil1_test.new_product_progress_data
-          (`Product Code`, `Product Name`, `Status`, `Sr_Mgmt_Rev_BY`)
+          (`Product Code`, `Product Name`, `Status`, `Sr_Mgmt_Rev_BY`,
+            `Start Date`, `Requested By`, `Customer`)
         VALUES (
           "#{@data[:insert][:code]}",
           "#{@data[:insert][:name]}",
           "#{@data[:insert][:state]}",
-          "#{@data[:insert][:reviewed_by]}"
+          "#{@data[:insert][:reviewed_by]}",
+          "#{@data[:insert][:start_date]}",
+          "#{@data[:insert][:requested_by]}",
+          "#{@data[:insert][:customer]}"
         );
 
         INSERT INTO chemfil1_test.new_product_progress_data_comments

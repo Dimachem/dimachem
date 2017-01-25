@@ -18,7 +18,7 @@ class FormulasController < ApplicationController
   # GET /formulas/1
   def show
     authorize @formula
-    build_progress_steps(@formula)
+    # build_progress_steps(@formula)
   end
 
   # GET /formulas/new
@@ -90,7 +90,8 @@ class FormulasController < ApplicationController
   end
 
   def build_progress_steps(formula)
-    build_steps = ProgressStep.active - formula.formulas_progress_steps.includes(:progress_step).map(&:progress_step)
+    build_steps = policy_scope(ProgressStep.active) -
+      policy_scope(formula.progress_steps)
     build_steps.each do |progress_step|
       formula.formulas_progress_steps.build(progress_step: progress_step)
     end

@@ -58,7 +58,7 @@ gem 'ransack'
 # gem 'will_paginate'
 gem 'paperclip', '~> 4.3'
 # gem 'carrierwave'
-gem 'state_machine'
+gem 'state_machines-activerecord'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -4,9 +4,7 @@ class UserPolicy < ApplicationPolicy
     # if user.admin? || user.owner_of?(post)
     if user.has_role? :super_user
       [
-        :code, :name, :priority, :state, :comments, :reviewed_by,
-        formulas_assets_attributes: [:id, :asset],
-        formulas_progress_steps_attributes: [:id, :progress_step_id, :completed, :completed_on, :comments]
+        users_roles_attributes: [:id, :role_id, :_destroy]
       ]
     else
       []
