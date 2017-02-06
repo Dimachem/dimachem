@@ -60,3 +60,8 @@ TODO:
 - https://github.com/oneclick/rubyinstaller/wiki/Development-Kit
 - http://www.userbooster.com/en/download/openldap-for-windows.aspx
 - http://railscasts.com/episodes/196-nested-model-form-part-1
+
+
+ODBC Configuration
+F:\DATA\ACCESS\JeffDEV\CHEMFIL1_STATIC.mdb
+F:\DATA\ACCESS\CHEMFIL1.mdb

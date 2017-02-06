@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119015243) do
+ActiveRecord::Schema.define(version: 20170130222359) do
 
   create_table "formulas", force: :cascade do |t|
     t.string   "code",         limit: 255,   null: false
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 20170119015243) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", unique: true, using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",            limit: 255,             null: false
@@ -94,20 +94,16 @@ ActiveRecord::Schema.define(version: 20170119015243) do
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-  create_table "users_roles", force: :cascade do |t|
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
     t.integer "role_id", limit: 4
   end
 
-  add_index "users_roles", ["role_id"], name: "index_users_roles_on_role_id", using: :btree
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true, using: :btree
-  add_index "users_roles", ["user_id"], name: "index_users_roles_on_user_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   add_foreign_key "formulas_assets", "formulas"
   add_foreign_key "formulas_progress_steps", "formulas"
   add_foreign_key "formulas_progress_steps", "progress_steps"
-  add_foreign_key "users_roles", "roles"
-  add_foreign_key "users_roles", "users"
   create_trigger("formulas_progress_steps_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("formulas_progress_steps").
       after(:insert) do
