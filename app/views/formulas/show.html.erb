@@ -36,7 +36,7 @@
 
 <p>
   <strong>Start Date:</strong>
-  <%= @formula.start_date %>
+  <%= @formula.start_date.try(:to_date) %>
 </p>
 
 <p>
